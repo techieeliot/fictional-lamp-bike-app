@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Harmattan&family=Katibeh&family=Spirax&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Harmattan', sans-serif;
 }
 
-.App-header, .App-section {
+.App-header, .App-section, .App-footer {
   background-color: #F9F7C2;
   min-height: 50vh;
   display: flex;
@@ -13,10 +16,33 @@
   color: #922f34;
 }
 
+.App-article{
+  width: 400px;
+}
 
+.App-flexbox {
+  width: 400px;
+  display: flex;
+	flex-direction: row;
+  flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+.App-button {
+  background-color: #922f34;
+  min-width: 150px;
+  font-size: calc(10px + 2vmin);
+  color: #fff;
+}
 
 .logo {
   width: 200px;
+}
+
+.logo-small {
+  width: 50px;
 }
 
 

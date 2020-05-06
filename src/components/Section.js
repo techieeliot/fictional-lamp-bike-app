@@ -5,10 +5,12 @@ function Section(props) {
     const sectionTitle = "Let's ride"
     return(
         <section className="App-section">
-            <article className="App-buttons">
+            <article className="App-article">
                 <h2>{sectionTitle}!</h2>
-                <Button text="Sign Up" />
-                <Button text="Login" />
+                <div className="App-flexbox">
+                    <Button text="Sign Up" />
+                    <Button text="Login" />
+                </div>
             </article> 
             {/* <h2>{props.sectionTitle}</h2>
             {props.main} */}

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import logo from './logo.png';
-import Header from './Header';
-import Section from './Section';
-import HomeMain from './HomeMain';
+import logo from './images/logo.svg';
+import Header from './components/Header.js';
+import Section from './components/Section';
+import HomeMain from './components/HomeMain';
 import './App.css';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -15,16 +16,23 @@ function App() {
     }
   }
   return (
-    <div className="App">
+    <main className="App">
       <Header 
+        className="App-header"
         logo={logo} 
         title="Welcome to the Biker App" 
       />
       <Section 
         // sectionTitle={sectionTitle}
+        className="App-section"
         sectionRender={main}
       />
-    </div>
+      <Footer 
+        className="App-footer"
+        slogan="A LEGENDARY APP."
+      />
+
+    </main>
   );
 }
 
