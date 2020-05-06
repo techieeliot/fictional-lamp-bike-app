@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import logo from './images/logo.svg';
-import Header from './components/Header.js';
+import Header from './components/Header';
 import Section from './components/Section';
-import HomeMain from './components/HomeMain';
+import Landing from './components/Landing';
 import './App.css';
 import Footer from './components/Footer';
 
 
-function App() {
-  const {main, setMain} = useState('home')
+const App = () => {
+  const {section, setSection} = useState('landing')
   
-  const sectionRender = (main) => {
-    if(main==='home'){
-      return <HomeMain />
+  const sectionRender = (section) => {
+    if(section==='landing'){
+      return <Landing />
     }
   }
   return (
@@ -25,7 +25,7 @@ function App() {
       <Section 
         // sectionTitle={sectionTitle}
         className="App-section"
-        sectionRender={main}
+        sectionRender={section}
       />
       <Footer 
         className="App-footer"

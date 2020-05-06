@@ -1,19 +1,14 @@
 import React from 'react'
-import Button from './Button'
+import Landing from './Landing'
+import Signup from './Signup'
 
-function Section(props) {
-    const sectionTitle = "Let's ride"
+
+const Section = (props) => {
+    let sectionTitle = "Let's ride"
     return(
         <section className="App-section">
-            <article className="App-article">
-                <h2>{sectionTitle}!</h2>
-                <div className="App-flexbox">
-                    <Button text="Sign Up" />
-                    <Button text="Login" />
-                </div>
-            </article> 
-            {/* <h2>{props.sectionTitle}</h2>
-            {props.main} */}
+            <Landing sectionTitle = {sectionTitle}/>
+            <Signup sectionTitle = {sectionTitle} />
         </section> 
     )
 } 
