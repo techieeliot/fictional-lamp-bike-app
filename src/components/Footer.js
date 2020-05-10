@@ -1,10 +1,10 @@
 import React from 'react'
-import logo from '../images/logo-orange-shield.svg'
+import shieldLogo from '../images/logo-orange-shield.svg'
 
 function Footer(props) {
     return(
         <footer className="App-footer">
-            <img className="logo-small" src={logo} alt="Biker. A Legendary App."/>
+            <img className="App-logo-small" src={shieldLogo} alt="Biker. A Legendary App."/>
             <p>{props.slogan}</p>
         </footer> 
     )

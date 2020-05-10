@@ -1,38 +1,25 @@
-import React, { useState } from 'react';
-import logo from './images/logo.svg';
-import Header from './components/Header';
-import Section from './components/Section';
-import Landing from './components/Landing';
+import React, { useState } from 'react'
+import Home from './components/Home'
+import Signup from './components/Signup'
+import Login from './components/Login'
 import './App.css';
-import Footer from './components/Footer';
 
 
 const App = () => {
-  const {section, setSection} = useState('landing')
+  const {route, setRoute} = useState('home')
   
-  const sectionRender = (section) => {
-    if(section==='landing'){
-      return <Landing />
+  const sectionRender = (route) => {
+    if(route==='home'){
+      return <Home />
     }
   }
   return (
-    <main className="App">
-      <Header 
-        className="App-header"
-        logo={logo} 
-        title="Welcome to the Biker App" 
+    <>
+      <Home 
+        title='Welcome to the Biker App'
+        articleTitle="Let's ride"
       />
-      <Section 
-        // sectionTitle={sectionTitle}
-        className="App-section"
-        sectionRender={section}
-      />
-      <Footer 
-        className="App-footer"
-        slogan="A LEGENDARY APP."
-      />
-
-    </main>
+    </>
   );
 }
 
