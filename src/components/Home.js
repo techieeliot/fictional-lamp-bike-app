@@ -1,34 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import Header from './Header'
 import Button from './Button'
 import Footer from './Footer'
 import GoodDay from './GoodDay'
-import logo from '../images/logo.svg'
 import LocationForm from './LocationForm'
+import { Link } from 'react-router-dom';
 
-const Home = (props) => {
-
+const Home = () => {
+    const [coords, setCoords] = useState('32.735317, -117.149048');
+    const title='Welcome to Biker'
+    const articleTitle="Let's ride"
+    
     return(
-        <>
-            <Header 
-                className='App-header'
-                logo={logo} 
-                title={props.title}
-            />
-            <article className='App-article'>
-                <h2>{props.articleTitle}!</h2>
-                <div className='App-flexbox'>
-                    <Button text='Demo' />
-                    <Button text='Signup' />
-                    <Button text='Login' />
-                </div>
+        <>  
+            <Header title={title} />
+            <main className='App-main'>
+                <h2>{`${articleTitle}!`}</h2>
                 <LocationForm />
                 <GoodDay />
-            </article> 
-            <Footer 
-            className="App-footer"
-            slogan="A LEGENDARY APP."
-            />
+                <div className='App-flexbox'>
+                    <Link to='/signup'>
+                        <Button text='Signup' />
+                    </Link>
+                    <Link to='/login'>
+                        <Button text='Login' />
+                    </Link>
+                </div>
+            </main> 
+            <Footer slogan='A LEGENDARY APP.' />
         </>
     )
 } 

@@ -7,7 +7,8 @@ body {
   color: #922f34;
 }
 
-.App-header, .App-article, .App-footer {
+.App-header, .App-main, .App-footer {
+  margin: 0px auto;
   min-height: 50vh;
   display: flex;
   flex-direction: column;
@@ -17,10 +18,14 @@ body {
 }
 
 .App-header, .App-footer {
-  background-color: #F9F7C2;
+  background: #F9F7C2;
 }
 
-.App-article, .App-good-day {
+.App-header {
+  margin-top: 10vh;
+}
+
+.App-main, .App-good-day {
   margin: 0px auto;
   margin-bottom: 5vh;
   width: 75vw;
@@ -33,7 +38,7 @@ body {
 }
 
 .App-button {
-  background-color: #922f34;
+  background: #922f34;
   min-width: 150px;
   font-size: calc(10px + 2vmin);
   color: #fff;
@@ -43,6 +48,13 @@ body {
   text-decoration: none;
   border-radius: 3px;
   align-self: center;
+  border-radius: 5px;
+}
+.App-button:hover {
+  background: #ec6e33;
+  font-family: 'Katibeh', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding-top: 7px;
+  font-size: calc(10px + 3vmin);
 }
 
 .App-flexbox {
@@ -59,22 +71,61 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px
+  width: 300px
 }
+  .App-form-column label, input {
+    align-self: center;
+    text-align: left;
+    width: 200px;
+  }
 
 .App-logo {
   width: 200px;
+  margin-top: 2em;
 }
 
 .App-logo-small {
-  width: 50px;
+  width: 10vw;
 }
 
-.App-form {
-  min-width: 300px;
-  background: #fff;
-  border: solid black 1px;
+.App-logo-xsmall {
+  height: 8vh;
 }
+
+.App-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: #922f34;
+  color: white;
+  font-size: calc(10px + 2vmin);
+  position: fixed;
+  top: 0;
+  width: 100%; 
+  
+}
+.App-nav-links {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+	justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+
+  .App-nav-links li {
+    width: 3em;
+    border-radius: 5px;
+  }
+  .App-nav-links li:hover {
+    background: #ec6e33;
+    font-family: 'Katibeh', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding-top: 7px;
+    font-size: calc(10px + 3vmin);
+  }
+
 
 .debugger {
   border: dashed red 2px;
