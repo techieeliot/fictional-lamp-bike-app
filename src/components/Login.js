@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react'
 import Header from './Header'
 import Button from './Button';
 import Input from './Input'
+import Footer from './Footer'
 /* onSuccess, loginError */
 const Login = function(props) {
-    
+    const title='Login'
+    const articleTitle='Welcome back'
     const [loginForm, setLoginForm] = useState({});
     const [validPassword, setValidPassword] = useState(false);
 
@@ -54,47 +56,59 @@ const Login = function(props) {
     }
     return(
         <>
-            <Header title={props.title} />  {/* Login! */}
-            <form method="post" className="App-form">
-                <Input 
-                    inputName="username"
-                    labelText="Username"
-                    inputType="email"
-                    inputPlaceholer="yourname@email.com"
-                    handleChange = {handleChange}
-                    signUpForm = {loginForm}
-                    setSignUpForm = {setLoginForm}
-                />
-                <Input 
-                    inputName="password"
-                    labelText="Password"
-                    inputType="password"
-                    inputPlaceholer="Create your password"
-                    handleChange = {handleChange}
-                    signUpForm = {loginForm}
-                    setSignUpForm = {setLoginForm}
-                />
-            </form>
-            <Button 
-                onClick={handleSubmit}
-                text="Submit"
+            <Header title={title} />  {/* Login! */}
+            <main className='App-main'>
+                <h2>{articleTitle}</h2>
+                <form method='post' className='App-form-column'>
+                    <Input 
+                        inputName='username'
+                        labelText='Username'
+                        inputType='email'
+                        inputPlaceholer='yourname@email.com'
+                        handleChange = {handleChange}
+                        signUpForm = {loginForm}
+                        setSignUpForm = {setLoginForm}
+                        required='required'
+                        />
+                    <Input 
+                        inputName='password'
+                        labelText='Password'
+                        inputType='password'
+                        inputPlaceholer='Create your password'
+                        handleChange = {handleChange}
+                        signUpForm = {loginForm}
+                        setSignUpForm = {setLoginForm}
+                        required='required'
+                        />
+                </form>
+                <Button 
+                    onClick={handleSubmit}
+                    text='Submit'
+                    />
+                <h2>{validPassword && 'Incorrect Password'}</h2>
+                <article className='App-article'>
+                    <p>Forgot your password?</p>
+                    <Button
+                        // onClick={ () => props.setRoute('reset')}
+                        text='Reset Password'
+                        />                  
+                    <p>Don't have an account?</p>
+                    <Button
+                        // onClick={ () => props.setRoute('signup')}
+                        text='Signup'
+                    />
+                    <br />                  
+                    <Button
+                        // onClick={ () => props.setRoute('signup')}
+                        text='Back'
+                    />                  
+                </article>
+            </main>
+            <Footer 
+                slogan="Let's ride!"
             />
-            <h2>{validPassword && 'Incorrect Password'}</h2>
-            <article className="App-article">
-                <p>Forgot your password?</p>
-                <Button
-                    // onClick={ () => props.setRoute('reset')}
-                    text="Reset Password"
-                />                  
-                <p>Don't have an account?</p>
-                <Button
-                    // onClick={ () => props.setRoute('signup')}
-                    text="Signup!"
-                />                  
-            </article>
         </>
-    )
-
+    ) 
 }
 
 export default Login
