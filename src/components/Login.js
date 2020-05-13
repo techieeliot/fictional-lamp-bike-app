@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from './Header'
 import Button from './Button';
 import Input from './Input'
 import Footer from './Footer'
-/* onSuccess, loginError */
-const Login = function(props) {
+import { Link } from 'react-router-dom'
+
+const Login = (props) => {
     const title='Login'
     const articleTitle='Welcome back'
     const [loginForm, setLoginForm] = useState({});
@@ -17,20 +18,20 @@ const Login = function(props) {
             })
       }
 
-    useEffect( () => {
-        gpsFunction()
-    }, [])
+    // useEffect( () => {
+    //     gpsFunction()
+    // }, [])
 
-    const gpsFunction = async () => {
-        if (navigator.geolocation) {
-            await navigator.geolocation.getCurrentPosition((position) => {
-                setLoginForm({
-                    ...loginForm,
-                    gps: `${position.coords.latitude}, ${position.coords.longitude}`
-                })
-            });
-        }
-    }
+    // const gpsFunction = async () => {
+    //     if (navigator.geolocation) {
+    //         await navigator.geolocation.getCurrentPosition((position) => {
+    //             setLoginForm({
+    //                 ...loginForm,
+    //                 gps: `${position.coords.latitude}, ${position.coords.longitude}`
+    //             })
+    //         });
+    //     }
+    // }
         
     const handleSubmit = async () => {
         
@@ -57,6 +58,7 @@ const Login = function(props) {
     return(
         <>
             <Header title={title} />  {/* Login! */}
+
             <main className='App-main'>
                 <h2>{articleTitle}</h2>
                 <form method='post' className='App-form-column'>
@@ -81,27 +83,32 @@ const Login = function(props) {
                         required='required'
                         />
                 </form>
-                <Button 
-                    onClick={handleSubmit}
-                    text='Submit'
+                <Link>
+                    <Button 
+                        onClick={handleSubmit}
+                        text='Submit'
                     />
+                </Link>
                 <h2>{validPassword && 'Incorrect Password'}</h2>
                 <article className='App-article'>
                     <p>Forgot your password?</p>
-                    <Button
-                        // onClick={ () => props.setRoute('reset')}
-                        text='Reset Password'
+                    <Link to='/reset'>
+                        <Button
+                            text='Reset Password'
                         />                  
+                    </Link>
                     <p>Don't have an account?</p>
-                    <Button
-                        // onClick={ () => props.setRoute('signup')}
-                        text='Signup'
-                    />
-                    <br />                  
-                    <Button
-                        // onClick={ () => props.setRoute('signup')}
-                        text='Back'
-                    />                  
+                    <Link to='/signup'>
+                        <Button
+                            text='Signup'
+                        />
+                    </Link>
+                    <br /> 
+                    <Link to='/'>
+                        <Button
+                            text='Back'
+                        />                  
+                    </Link>                 
                 </article>
             </main>
             <Footer 

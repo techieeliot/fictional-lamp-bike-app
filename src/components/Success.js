@@ -1,25 +1,33 @@
 import React, { useState } from 'react'
 import Header, { logo } from './Header'
-import Input from './Input'
 import Button from './Button'
+import { Link } from 'react-dom'
 import Footer from './Footer'
+import LocationForm from './LocationForm'
+import Forecast from './Forecast'
 
 const Success = (props) => {
-
+    const title = 'Success'
+    const firstName = 'Eliot'
     return(
         <>
-            <Header title={props.title} />
-            <main id="container">
-                <h2>{`Hey ${props.user.firstName}!`}</h2>
-                <Button 
-                    // onClick={() =>props.setRoute('changePass')}
-                    text='Change Password'
-                />
-                <Button 
-                    // onClick={() =>props.onLogout('main')}
-                    text='Logout'
-                />
+            <Header title={title} />
+            <main className='App-main'>
+                <h2>{`Hey ${firstName}!`}</h2>
+                <LocationForm />
+                <Forecast />
+                <Link to='/change'>
+                    <Button 
+                        text='Change Password'
+                    />
+                </Link>
+                <Link to='/'>
+                    <Button 
+                        text='Logout'
+                    />
+                </Link>
             </main>
+            <Footer />
         </>
     )
 }

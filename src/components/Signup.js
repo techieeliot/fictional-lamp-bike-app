@@ -102,9 +102,7 @@ const Signup = (props) => {
                         setSignUpForm = {setSignUpForm}
                     />
                 </form>
-                <Link onClick={handleSubmit}>
-                    <Button text='Submit'/>
-                </Link>
+                <Button onClick={handleSubmit} text='Submit'/>
                 <article className='App-article'>
                     <p>Already have an account?</p>
                     <Link to='/login'>                 

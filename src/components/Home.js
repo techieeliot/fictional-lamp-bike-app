@@ -2,23 +2,22 @@ import React, { useState, useEffect} from 'react'
 import Header from './Header'
 import Button from './Button'
 import Footer from './Footer'
-import GoodDay from './GoodDay'
+import Forecast from './Forecast'
 import LocationForm from './LocationForm'
+import UseCurrentPosition from './UseCurrentPosition'
 import { Link } from 'react-router-dom';
 
-const Home = () => {
-    const [coords, setCoords] = useState('32.735317, -117.149048');
-    const title='Welcome to Biker'
-    const articleTitle="Let's ride"
-    
+const Home = (props) => {
+
     return(
         <>  
-            <Header title={title} />
+            <Header title={props.title} />
             <main className='App-main'>
-                <h2>{`${articleTitle}!`}</h2>
+                <h2>{`${props.articleTitle}!`}</h2>
+                <UseCurrentPosition />
+                <Forecast />
                 <LocationForm />
-                <GoodDay />
-                <div className='App-flexbox'>
+                <div className='App-flexbox'> 
                     <Link to='/signup'>
                         <Button text='Signup' />
                     </Link>
@@ -27,7 +26,6 @@ const Home = () => {
                     </Link>
                 </div>
             </main> 
-            <Footer slogan='A LEGENDARY APP.' />
         </>
     )
 } 

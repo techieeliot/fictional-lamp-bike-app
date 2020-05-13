@@ -6,10 +6,9 @@ const Input = (
     handleChange,
     inputType,
     inputPlaceholer,
+    required
     }
 ) => {
-
-    const [required, setRequired] = useState('required')
 
     return(
         <div className='App-form-column'>

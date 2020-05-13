@@ -7,14 +7,14 @@ body {
   color: #922f34;
 }
 
-.App-header, .App-main, .App-footer {
-  margin: 0px auto;
-  min-height: 50vh;
+#root {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+}
+.App-header, .App-main, .App-footer {
+  min-height: 50vh;
 }
 
 .App-header, .App-footer {
@@ -85,6 +85,7 @@ body {
 }
 
 .App-logo-small {
+  margin-top: 2em;
   width: 10vw;
 }
 
