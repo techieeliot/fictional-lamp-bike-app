@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Input from './Input'
 import Button from './Button'
+import { Link } from 'react-router-dom'
+
 
 const LocationForm = (props) => {
     const [locationForm, setLocationForm] = useState([])
@@ -30,48 +32,45 @@ const LocationForm = (props) => {
         }
     }
     return(
-        <>
-            <form method='get' className='App-article'>
+        <>  
+            <aside className='Component-icon-container'>
+                <canvas className='Component-icon' height='100' width='100'></canvas>
+            </aside>
+            <article className='Component-content'>
+                <div className='Component-general'>
+                    <h3 className='Component-status'>Location TBD</h3>
+                    <p className='Component-location'>Weather TBD</p>
+                </div>
+            </article>
+            <section className='Component-details-section'>
+                <div className='Component-detail'>
+                    <h3 className='Component-title'>Precipitation</h3>
+                    <p className='Component-value'>TBD</p>
+                </div>
+                <div className='Component-detail'>
+                    <h3 className='Component-title'>Temperature</h3>
+                    <p className='Component-value'>TBD</p>
+                </div>
+                <div className='Component-detail'>
+                    <h3 className='Component-title'>Wind</h3>
+                    <p className='Component-value'>TBD</p>
+                </div>
+            </section>
+            <form method='get' className='Component-city-search-container'>
                 <Input
                     inputName='city-search'
-                    labelText='City Name'
+                    labelText='Enter location'
                     inputType='text'
-                    inputPlaceholer='e.g. San Diego'
-                    handleChange = {handleChange}
-                />
-                <Input
-                    inputName='state-search'
-                    labelText='State Code'
-                    inputType='text'
-                    inputPlaceholer='e.g. CA'
-                    handleChange = {handleChange}
-                />
-                <Input
-                    inputName='country-search'
-                    labelText='Country Code'
-                    inputType='text'
-                    inputPlaceholer='e.g. US'
-                    handleChange = {handleChange}
-                />
-                <Input
-                    inputName='latitude'
-                    labelText='Latitude'
-                    inputType='text'
-                    inputPlaceholer='e.g. 32.735317'
-                    handleChange = {handleChange}
-                />
-                <Input
-                    inputName='longitude'
-                    labelText='Longitude'
-                    inputType='text'
-                    inputPlaceholer='e.g. -117.149048'
+                    inputPlaceholer='e.g. San Diego, CA'
                     handleChange = {handleChange}
                 />
             </form>
-            <Button 
-                text='Submit'
-                onClick={handleSubmit}
-            />
+            <Link to='/'>
+                <Button 
+                    text='Submit'
+                    onClick={handleSubmit}
+                />
+            </Link>
         </>
     )
 }

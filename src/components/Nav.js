@@ -15,14 +15,21 @@ function Nav() {
             </Link>
             <ul className='App-nav-links'>
                 <Link style={navStyle} to='/'>
-                    <li>Demo</li>
+                    <li>Home</li>
                 </Link>
-                <Link style={navStyle} to='/signup'>
+                <Link style={navStyle} to='/localforecast'>
+                    <li>Local</li>
+                </Link>
+                <Link style={navStyle} to='/locationform'>
+                    <li>Search</li>
+                </Link>
+
+                {/* <Link style={navStyle} to='/signup'>
                     <li>Signup</li>
                 </Link>
                 <Link style={navStyle} to='/login'>
                     <li>Login</li>
-                </Link>
+                </Link> */}
             </ul>
         </nav>
     )

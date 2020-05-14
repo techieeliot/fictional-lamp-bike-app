@@ -1,13 +1,18 @@
-require('dotenv').config();
+if (process.env.NODE_ENV != 'production') {
+  require('dotenv').config();
+}
 const express = require('express')
-const cors = require('cors');
 const server = express();
+const cors = require('cors');
 server.use(cors());
-const axios = require('axios');
-const PORT = 8080;
-const API_KEY = process.env.API_KEY
 
+const WB_API_KEY = process.env.WB_API_KEY
+const PORT = 8080;
+const axios = require('axios');
+
+server.use(express.json())
 server.use(express.static(__dirname));
+
 
 const getCoordinates = (req) => {
   new Promise((resolve, reject) => {
@@ -29,14 +34,17 @@ server.get('/',  (req, res, next) => {
     i++
   }
   console.log(lat, lon)
-  const API_URL = `http://api.weatherbit.io/v2.0/forecast/daily?key=${API_KEY}&days=8&units=I&lat=${lat}&lon=${lon}`
+  const API_URL = `http://api.weatherbit.io/v2.0/forecast/daily?key=${WB_API_KEY}&days=8&units=I&lat=${lat}&lon=${lon}`
   axios.get(API_URL)
   .then(response => response.data)
-  .then(data => console.log(data))
-  // .then(data => res.send(data))
+  // .then(data => console.log(data))
+  .then(data => res.send(data))
   .catch(err => console.log(err))
 })
 
+server.post('/weather', (req, res) => {
+
+})
 //Sign up
 // server.post('/signup', createUser)
 
