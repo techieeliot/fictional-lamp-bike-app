@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { usePosition } from 'use-position';
 import axios from 'axios';
 import UseCurrentPosition from './UseCurrentPosition';
+import Header from './Header'
 import { Link } from 'react-router-dom'
+import { prependToMemberExpression } from '@babel/types';
 
     
 const LocalForecast = (props) => {
@@ -46,19 +48,22 @@ const LocalForecast = (props) => {
     }, [location])
     
     return(
-        <section className='App-forecast'>
-            <aside className='Component-icon-container'>
-                <canvas className='Component-icon' height='100' width='100'></canvas>
-            </aside>
-            <h2></h2>
-            <UseCurrentPosition />
-            <article className='Component-content'>
-                <div className='Component-general'>
-                    <h3 className='Component-status'>Enter a Location</h3>
-                    <p className='Component-location'>To Find the Weather</p>
-                </div>
-            </article>
-        </section>
+        <>  
+            <section className='App-forecast'>
+                {props.articleTitle}
+                <aside className='Component-icon-container'>
+                    <canvas className='Component-icon' height='100' width='100'></canvas>
+                </aside>
+                <h2></h2>
+                <UseCurrentPosition />
+                <article className='Component-content'>
+                    <div className='Component-general'>
+                        <h3 className='Component-status'>Enter a Location</h3>
+                        <p className='Component-location'>To Find the Weather</p>
+                    </div>
+                </article>
+            </section>
+        </>
     )
 }
 

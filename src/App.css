@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Harmattan&family=Katibeh&family=Spirax&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Duru+Sans|Fira+Code|Roboto+Mono|Space+Mono&display=swap');
 
 body {
   box-sizing: border-box;
@@ -69,6 +70,7 @@ body {
 }
 
 .App-form-column {
+  margin: 0px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,10 +130,26 @@ body {
     font-size: calc(10px + 3vmin);
   }
 
+  .App-wb-logo-small {
+    height: 5vh;
+    border-radius: 3em;
+    margin-bottom: -1.75em;
+  }
+
+  .Component-city-search-container {
+    margin-bottom: 1em;
+  }
+
 
 .debugger {
   border: dashed red 2px;
   background-color: lightpink
 }
 
+.duru-font {
+  font-family: 'Duru Sans', Verdana, Geneva, Tahoma, sans-serif;
+}
 
+.reduce-space-between {
+  margin-bottom: -0.5em;
+}

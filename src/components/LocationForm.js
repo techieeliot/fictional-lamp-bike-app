@@ -34,6 +34,7 @@ const LocationForm = (props) => {
     return(
         <>  
             <aside className='Component-icon-container'>
+                {props.articleTitle}
                 <canvas className='Component-icon' height='100' width='100'></canvas>
             </aside>
             <article className='Component-content'>

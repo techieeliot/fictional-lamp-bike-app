@@ -5,6 +5,7 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import Footer from './components/Footer'
 import LocalForecast from './components/LocalForecast'
+import Header from './components/Header'
 // import Success from './components/Success'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
@@ -25,22 +26,28 @@ const App = function() {
             />
           </Route>
           <Route path='/localforecast'>
+            <Header title='Your Local Forecast' />
             <LocalForecast 
-              title='Your Local Forecast'
               articleTitle="Today's Weather"
             />
           </Route>
           <Route path='/locationform'>
+            <Header title='City Search' />
             <LocationForm 
-              title='City Search'
               articleTitle="Find Your Weather by Searching"
             />
           </Route>
           <Route path='/signup'>
-            <Signup />
+            <Signup 
+              title='Sign up'
+              articleTitle='Fill in your info'
+            />
           </Route>
           <Route path='/login'>
-            <Login />
+            <Login 
+              title='Login'
+              articleTitle='Fill in your info'
+            />
           </Route>
         </Switch>
         <Footer /> 
