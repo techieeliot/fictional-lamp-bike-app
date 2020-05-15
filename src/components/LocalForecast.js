@@ -2,6 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import { usePosition } from 'use-position';
 // import iconDirName from '../images/icons/'
 import axios from 'axios';
+import Predictions from './Predictions' 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarAlt, 
+    faTint,
+    faThermometerThreeQuarters,
+    faWind,
+    faMotorcycle,
+    faExclamationCircle
+} from '@fortawesome/free-solid-svg-icons'
 
 const LocalForecast = (props) => {
     const watch = false
@@ -16,7 +25,7 @@ const LocalForecast = (props) => {
             return
         } else 
         if (latitude && longitude) {
-            axios.get('http://localhost:8080', {
+            axios.get('http://localhost:9036', {
                 params: {
                     lat: latitude, 
                     lon: longitude
@@ -42,13 +51,36 @@ const LocalForecast = (props) => {
     let windSpeed = todaysWeather?.wind_spd
     let iconCode = todaysWeather?.weather.icon
     let description = todaysWeather?.weather.description
+    let weatherData = weather.data
     // let iconPath = `${iconDirName}${iconCode}.png`
 
     console.log(weather.data?.[0].weather.icon)
     // console.log(iconPath)
     console.log(typeof cityName)
 
-   
+    const dateBuilder = (d) => {
+        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
+        let day = days[d.getDay()];
+        let date = d.getDate();
+        let month = months[d.getMonth()];
+        let year = d.getFullYear();
+    
+        return `${day} ${month} ${date}, ${year}`
+      }
+
+    const useGoodDayIndex = (high, low, rain, wind) => {
+        if (high <= 100 && low >= 32 && rain >= 40 && wind >=25 ){
+            return true
+        } else{
+            return false
+        }
+    }
+
+    const goodDayIndex = useGoodDayIndex(highTemperature, lowTemperature, precipitation, windSpeed)
+
+
     return(
         <>  
             {/* {weather.map(data => `<h1>${data}</h1>`)} */}
@@ -65,6 +97,19 @@ const LocalForecast = (props) => {
                         height='100' width='100' 
                         alt='weather description icon'
                     /> */}
+                </aside>
+                <aside className='Component-good-day-container'>
+                    <h3 className='Component-good-day-index'>
+                        {(goodDayIndex)? "Today is good day! Let's ride!" : "Today is a not so good. Try again tomorrow." }
+                    </h3>
+                    <img 
+                        src={(goodDayIndex)? 
+                            <FontAwesomeIcon icon={faMotorcycle}/> : 
+                            <FontAwesomeIcon icon={faExclamationCircle}/> 
+                        } 
+                        className='Component-good-day-index-photo-large' 
+                        alt='Good day indicator' 
+                    />
                 </aside>
                 <article className='Component-content'>
                     <div className='Component-general'>
@@ -101,6 +146,17 @@ const LocalForecast = (props) => {
                         </p>
                     </div>
                 </section>
+                <article className='Component-content'>
+                    <div className='Component-general'>
+                        <h3 className='Component-more results'>
+                            Want more results?
+                        </h3>
+                        <button className='App-button'>See a 7-day forecast</button>
+                    </div>
+                </article>     
+                <Predictions />
+
+                {weather.data}
             </>
             ) : (
             <>
