@@ -50,6 +50,7 @@ const LocationForm = (props) => {
                     <p className='Component-value'>TBD</p>
                 </div>
             </section>
+            {/* Google API Component to... */}
             <PlacesAutocomplete 
                 value={address} 
                 onChange={setAddress} 
@@ -77,7 +78,7 @@ const LocationForm = (props) => {
                                 }
                                 return (
                                     <div {...getSuggestionItemProps(suggestion, {style})}>
-                                    {suggestion.description}
+                                        {suggestion.description}
                                     </div>
                                 );
                             })}
