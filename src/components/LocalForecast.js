@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { usePosition } from 'use-position';
-// import iconDirName from '../images/icons/'
 import axios from 'axios';
+import biker from '../images/woman-on-motorcycle-silhouette.png'
+import reload from '../images/reload.svg'
+// import iconDirName from '../images/icons/'
 
 const LocalForecast = (props) => {
     const watch = false
@@ -48,6 +50,29 @@ const LocalForecast = (props) => {
     // console.log(iconPath)
     console.log(typeof cityName)
 
+    const dateBuilder = (d) => {
+        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
+        let day = days[d.getDay()];
+        let date = d.getDate();
+        let month = months[d.getMonth()];
+        let year = d.getFullYear();
+    
+        return `${day} ${month} ${date}, ${year}`
+      }
+
+    const useGoodDayIndex = (high, low, rain, wind) => {
+        if (high <= 100 && low >= 32 && rain >= 40 && wind >=25 ){
+            return true
+        } else{
+            return false
+        }
+    }
+
+    const goodDayIndex = useGoodDayIndex(highTemperature, lowTemperature, precipitation, windSpeed)
+
+
    
     return(
         <>  
@@ -66,12 +91,25 @@ const LocalForecast = (props) => {
                         alt='weather description icon'
                     /> */}
                 </aside>
+                <aside className='Component-good-day-container'>
+                    <h3 className='Component-good-day-index'>
+                        {(goodDayIndex)? "Today is good day! Let's ride!" : "Today is a not so good. Try again tomorrow." }
+                    </h3>
+                    <img 
+                        src={(goodDayIndex)? biker : reload } className='Component-good-day-index-photo-large' 
+                        alt='Good day indicator' 
+                    />
+                </aside>
                 <article className='Component-content'>
                     <div className='Component-general'>
                         <h3 className='Component-city'>
                             {/* e.g. Clinton, MS, US */}
                             {`${cityName}, ${stateCode}, ${countryCode}`}
                         </h3>
+                        <p className='Component-date'>
+                            {/* Friday May 15, 2020 */}
+                            {dateBuilder(new Date())}
+                        </p>
                         <p className='Component-status'>
                             {/* Overcast */}
                             {description}
@@ -118,6 +156,10 @@ const LocalForecast = (props) => {
                         <h3 className='Component-city'>
                             Location TBD
                         </h3>
+                        <p className='Component-date'>
+                            {/* Friday May 15, 2020 */}
+                            {dateBuilder(new Date())}
+                        </p>
                         <p className='Component-status'>{(description) ? description : 'Weather TBD'}</p>
                     </div>
                 </article>
