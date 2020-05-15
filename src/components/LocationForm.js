@@ -1,8 +1,5 @@
 /*global google*/ 
 import React, { useState } from 'react'
-import Input from './Input'
-import Button from './Button'
-import { Link } from 'react-router-dom'
 import axios from 'axios';
 import PlacesAutocomplete, { 
     geocodeByAddress, 
@@ -20,36 +17,10 @@ const LocationForm = (props) => {
         setAddress(value)
         setPosition(coords)
     }
-
-    
-
-
     return(
         <>
-            <aside className='Component-icon-container'>
-                <h2>{props.articleTitle}</h2>
-                <canvas className='Component-icon' height='100' width='100'></canvas>
-            </aside>
-            <article className='Component-content'>
-                <div className='Component-general'>
-                    <h3 className='Component-status'>Location TBD</h3>
-                    <p className='Component-location'>Weather TBD</p>
-                </div>
-            </article>
-            <section className='Component-details-section App-flexbox'>
-                <div className='Component-detail'>
-                    <h3 className='Component-title'>Precipitation</h3>
-                    <p className='Component-value'>TBD</p>
-                </div>
-                <div className='Component-detail'>
-                    <h3 className='Component-title'>Temperature</h3>
-                    <p className='Component-value'>TBD</p>
-                </div>
-                <div className='Component-detail'>
-                    <h3 className='Component-title'>Wind</h3>
-                    <p className='Component-value'>TBD</p>
-                </div>
-            </section>
+            <h2>{props.articleTitle}</h2>
+            {/* Google API Component to... */}
             <PlacesAutocomplete 
                 value={address} 
                 onChange={setAddress} 
@@ -77,7 +48,7 @@ const LocationForm = (props) => {
                                 }
                                 return (
                                     <div {...getSuggestionItemProps(suggestion, {style})}>
-                                    {suggestion.description}
+                                        {suggestion.description}
                                     </div>
                                 );
                             })}
@@ -85,6 +56,29 @@ const LocationForm = (props) => {
                     </div>
                 )}
             </PlacesAutocomplete> 
+            <article className='Component-content'>
+                <aside className='Component-icon-container'>
+                    <canvas className='Component-icon' height='100' width='100'></canvas>
+                </aside>
+                <div className='Component-general'>
+                    <h3 className='Component-status'>Location TBD</h3>
+                    <p className='Component-location'>Weather TBD</p>
+                </div>
+            </article>
+            <section className='Component-details-section App-flexbox'>
+                <div className='Component-detail'>
+                    <h3 className='Component-title'>Precipitation</h3>
+                    <p className='Component-value'>TBD</p>
+                </div>
+                <div className='Component-detail'>
+                    <h3 className='Component-title'>Temperature</h3>
+                    <p className='Component-value'>TBD</p>
+                </div>
+                <div className='Component-detail'>
+                    <h3 className='Component-title'>Wind</h3>
+                    <p className='Component-value'>TBD</p>
+                </div>
+            </section>
         </>
     )
 }
