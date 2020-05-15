@@ -188,6 +188,11 @@ body {
     filter: drop-shadow(0.1rem 0.1rem 0.25rem gray);
   }
 
+  .Component-good-day-index-photo-large {
+    width: 200px;
+
+  }
+
   .Component-icon-container {
     display: flex;
     flex-direction: column;

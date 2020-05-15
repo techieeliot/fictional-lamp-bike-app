@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { usePosition } from 'use-position';
-// import iconDirName from '../images/icons/'
 import axios from 'axios';
 import Predictions from './Predictions' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -80,7 +79,6 @@ const LocalForecast = (props) => {
 
     const goodDayIndex = useGoodDayIndex(highTemperature, lowTemperature, precipitation, windSpeed)
 
-
     return(
         <>  
             {/* {weather.map(data => `<h1>${data}</h1>`)} */}
@@ -117,6 +115,10 @@ const LocalForecast = (props) => {
                             {/* e.g. Clinton, MS, US */}
                             {`${cityName}, ${stateCode}, ${countryCode}`}
                         </h3>
+                        <p className='Component-date'>
+                            {/* Friday May 15, 2020 */}
+                            {dateBuilder(new Date())}
+                        </p>
                         <p className='Component-status'>
                             {/* Overcast */}
                             {description}
@@ -174,6 +176,10 @@ const LocalForecast = (props) => {
                         <h3 className='Component-city'>
                             Location TBD
                         </h3>
+                        <p className='Component-date'>
+                            {/* Friday May 15, 2020 */}
+                            {dateBuilder(new Date())}
+                        </p>
                         <p className='Component-status'>{(description) ? description : 'Weather TBD'}</p>
                     </div>
                 </article>

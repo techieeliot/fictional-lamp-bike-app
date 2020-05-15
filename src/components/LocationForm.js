@@ -1,8 +1,5 @@
 /*global google*/ 
 import React, { useState } from 'react'
-import Input from './Input'
-import Button from './Button'
-import { Link } from 'react-router-dom'
 import axios from 'axios';
 import PlacesAutocomplete, { 
     geocodeByAddress, 
@@ -20,12 +17,9 @@ const LocationForm = (props) => {
         setAddress(value)
         setPosition(coords)
     }
-
-    
-
-
     return(
         <>
+            <h2>{props.articleTitle}</h2>
             {/* Google API Component to... */}
             <PlacesAutocomplete 
                 value={address} 
@@ -62,11 +56,11 @@ const LocationForm = (props) => {
                     </div>
                 )}
             </PlacesAutocomplete> 
-            <aside className='Component-icon-container'>
-                <h2>{props.articleTitle}</h2>
-                <canvas className='Component-icon' height='100' width='100'></canvas>
-            </aside>
+
             <article className='Component-content'>
+                <aside className='Component-icon-container'>
+                    <canvas className='Component-icon' height='100' width='100'></canvas>
+                </aside>
                 <div className='Component-general'>
                     <h3 className='Component-status'>Location TBD</h3>
                     <p className='Component-location'>Weather TBD</p>
