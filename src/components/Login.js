@@ -1,10 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from './Header'
 import Button from './Button';
 import Input from './Input'
-/* onSuccess, loginError */
-const Login = function(props) {
-    
+import Footer from './Footer'
+import { Link } from 'react-router-dom'
+
+const Login = (props) => {
+    const title='Login'
+    const articleTitle='Welcome back'
     const [loginForm, setLoginForm] = useState({});
     const [validPassword, setValidPassword] = useState(false);
 
@@ -15,20 +18,20 @@ const Login = function(props) {
             })
       }
 
-    useEffect( () => {
-        gpsFunction()
-    }, [])
+    // useEffect( () => {
+    //     gpsFunction()
+    // }, [])
 
-    const gpsFunction = async () => {
-        if (navigator.geolocation) {
-            await navigator.geolocation.getCurrentPosition((position) => {
-                setLoginForm({
-                    ...loginForm,
-                    gps: `${position.coords.latitude}, ${position.coords.longitude}`
-                })
-            });
-        }
-    }
+    // const gpsFunction = async () => {
+    //     if (navigator.geolocation) {
+    //         await navigator.geolocation.getCurrentPosition((position) => {
+    //             setLoginForm({
+    //                 ...loginForm,
+    //                 gps: `${position.coords.latitude}, ${position.coords.longitude}`
+    //             })
+    //         });
+    //     }
+    // }
         
     const handleSubmit = async () => {
         
@@ -54,47 +57,65 @@ const Login = function(props) {
     }
     return(
         <>
-            <Header title={props.title} />  {/* Login! */}
-            <form method="post" className="App-form">
-                <Input 
-                    inputName="username"
-                    labelText="Username"
-                    inputType="email"
-                    inputPlaceholer="yourname@email.com"
-                    handleChange = {handleChange}
-                    signUpForm = {loginForm}
-                    setSignUpForm = {setLoginForm}
-                />
-                <Input 
-                    inputName="password"
-                    labelText="Password"
-                    inputType="password"
-                    inputPlaceholer="Create your password"
-                    handleChange = {handleChange}
-                    signUpForm = {loginForm}
-                    setSignUpForm = {setLoginForm}
-                />
-            </form>
-            <Button 
-                onClick={handleSubmit}
-                text="Submit"
-            />
-            <h2>{validPassword && 'Incorrect Password'}</h2>
-            <article className="App-article">
-                <p>Forgot your password?</p>
-                <Button
-                    // onClick={ () => props.setRoute('reset')}
-                    text="Reset Password"
-                />                  
-                <p>Don't have an account?</p>
-                <Button
-                    // onClick={ () => props.setRoute('signup')}
-                    text="Signup!"
-                />                  
-            </article>
-        </>
-    )
+            <Header title={title} />  {/* Login! */}
 
+            <main className='App-main'>
+                <h2>{articleTitle}</h2>
+                <form method='post' className='App-form-column'>
+                    <Input 
+                        inputName='username'
+                        labelText='Username'
+                        inputType='email'
+                        inputPlaceholer='yourname@email.com'
+                        handleChange = {handleChange}
+                        signUpForm = {loginForm}
+                        setSignUpForm = {setLoginForm}
+                        required='required'
+                        />
+                    <Input 
+                        inputName='password'
+                        labelText='Password'
+                        inputType='password'
+                        inputPlaceholer='Create your password'
+                        handleChange = {handleChange}
+                        signUpForm = {loginForm}
+                        setSignUpForm = {setLoginForm}
+                        required='required'
+                        />
+                </form>
+                <Link>
+                    <Button 
+                        onClick={handleSubmit}
+                        text='Submit'
+                    />
+                </Link>
+                <h2>{validPassword && 'Incorrect Password'}</h2>
+                <article className='App-article'>
+                    <p>Forgot your password?</p>
+                    <Link to='/reset'>
+                        <Button
+                            text='Reset Password'
+                        />                  
+                    </Link>
+                    <p>Don't have an account?</p>
+                    <Link to='/signup'>
+                        <Button
+                            text='Signup'
+                        />
+                    </Link>
+                    <br /> 
+                    <Link to='/'>
+                        <Button
+                            text='Back'
+                        />                  
+                    </Link>                 
+                </article>
+            </main>
+            <Footer 
+                slogan="Let's ride!"
+            />
+        </>
+    ) 
 }
 
 export default Login

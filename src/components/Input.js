@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Input = (props) => {
+const Input = (
+    {inputName, 
+    labelText, 
+    handleChange,
+    inputType,
+    inputPlaceholer,
+    required
+    }
+) => {
 
     return(
-        <div className="App-form-column">
-            <label for={props.inputName}>{props.labelText}:</label>
-            <input onChange={props.handleChange} type={props.inputType} name={props.inputName} id={props.inputName} placeholder={props.inputPlaceholer} required />
+        <div className='App-form-column'>
+            <label htmlFor={inputName}>{`${labelText}:`}</label>
+            <input 
+                onChange={handleChange} 
+                type={inputType} 
+                name={inputName} 
+                id={inputName} 
+                placeholder={inputPlaceholer} 
+                {...required} 
+            />
         </div>
     )
 } 
