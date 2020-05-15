@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { usePosition } from 'use-position';
 import axios from 'axios';
-import biker from '../images/woman-on-motorcycle-silhouette.png'
-import reload from '../images/reload.svg'
-// import iconDirName from '../images/icons/'
+import Predictions from './Predictions' 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarAlt, 
+    faTint,
+    faThermometerThreeQuarters,
+    faWind,
+    faMotorcycle,
+    faExclamationCircle
+} from '@fortawesome/free-solid-svg-icons'
 
 const LocalForecast = (props) => {
     const watch = false
@@ -18,7 +24,7 @@ const LocalForecast = (props) => {
             return
         } else 
         if (latitude && longitude) {
-            axios.get('http://localhost:8080', {
+            axios.get('http://localhost:9036', {
                 params: {
                     lat: latitude, 
                     lon: longitude
@@ -44,6 +50,7 @@ const LocalForecast = (props) => {
     let windSpeed = todaysWeather?.wind_spd
     let iconCode = todaysWeather?.weather.icon
     let description = todaysWeather?.weather.description
+    let weatherData = weather.data
     // let iconPath = `${iconDirName}${iconCode}.png`
 
     console.log(weather.data?.[0].weather.icon)
@@ -72,8 +79,6 @@ const LocalForecast = (props) => {
 
     const goodDayIndex = useGoodDayIndex(highTemperature, lowTemperature, precipitation, windSpeed)
 
-
-   
     return(
         <>  
             {/* {weather.map(data => `<h1>${data}</h1>`)} */}
@@ -96,7 +101,11 @@ const LocalForecast = (props) => {
                         {(goodDayIndex)? "Today is good day! Let's ride!" : "Today is a not so good. Try again tomorrow." }
                     </h3>
                     <img 
-                        src={(goodDayIndex)? biker : reload } className='Component-good-day-index-photo-large' 
+                        src={(goodDayIndex)? 
+                            <FontAwesomeIcon icon={faMotorcycle}/> : 
+                            <FontAwesomeIcon icon={faExclamationCircle}/> 
+                        } 
+                        className='Component-good-day-index-photo-large' 
                         alt='Good day indicator' 
                     />
                 </aside>
@@ -139,6 +148,17 @@ const LocalForecast = (props) => {
                         </p>
                     </div>
                 </section>
+                <article className='Component-content'>
+                    <div className='Component-general'>
+                        <h3 className='Component-more results'>
+                            Want more results?
+                        </h3>
+                        <button className='App-button'>See a 7-day forecast</button>
+                    </div>
+                </article>     
+                <Predictions />
+
+                {weather.data}
             </>
             ) : (
             <>

@@ -202,6 +202,73 @@ body {
     margin-bottom: -1em;
   }
 
+/* TABLE STYLING */
+
+.Table-seven-day  {
+  border-collapse:collapse;
+  border-color:#aaa;
+  border-spacing:0;
+  margin:0px auto;
+  width: 350px;
+  margin-top: 1em;
+  filter: drop-shadow(0.1rem 0.1rem 0.25rem gray);
+}
+
+.Table-seven-day td {
+  background-color:#fff;
+  border-bottom-width:1px;
+  border-color:#aaa;
+  border-style:solid;
+  border-top-width:1px;
+  border-width:0px;
+  color:#333;
+  font-family:Arial, sans-serif;
+  font-size:14px;
+  overflow:hidden;
+  padding:10px 5px;
+  word-break:normal;
+}
+
+.Table-seven-day th {
+  background-color:#f38630;
+  border-bottom-width:1px;
+  border-color:#aaa;
+  border-style:solid;
+  border-top-width:1px;
+  border-width:0px;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  font-size:14px;
+  font-weight:normal;
+  overflow:hidden;
+  padding:10px 5px;
+  word-break:normal;
+}
+
+.Table-seven-day .Table-seven-day-even {
+  color:#922f34;
+  text-align:center;
+  vertical-align:top
+}
+
+.Table-seven-day .Table-seven-day-header {
+  color:#ffffff;
+  position:-webkit-sticky;
+  position:sticky;
+  text-align:center;
+  top:-1px;
+  vertical-align:top;
+  will-change:transform
+}
+
+.Table-seven-day .Table-seven-day-odd {
+  background-color:#f9f7c2;
+  color:#922f34;
+  text-align:center;
+  vertical-align:top
+}
+
+
 /* MISCELLANEOUS STYLING */
 input {
   filter: drop-shadow(0.1rem 0.1rem 0.1rem gray);

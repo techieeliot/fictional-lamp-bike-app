@@ -9,11 +9,11 @@ import PlacesAutocomplete, {
 const LocationForm = (props) => {
     const [address, setAddress] = useState('')
     const [position, setPosition] = useState({lat: null, lng: null})
-    const [ weather, setWeather ] = useState([])
+    const [ weatherData, setWeatherData ] = useState([])
     const [GOOGLE_API_KEY] = useState('AIzaSyChibLEhSXx0b-odGYQtHKOLkb6ZVpJXi8')
     const handleSelect = async (value) => {
         const results = geocodeByAddress(value)
-        const coords = getLatLng(results[0])
+        const coords = getLatLng(results?.[0].geometry.location)
         setAddress(value)
         setPosition(coords)
     }
@@ -56,6 +56,7 @@ const LocationForm = (props) => {
                     </div>
                 )}
             </PlacesAutocomplete> 
+
             <article className='Component-content'>
                 <aside className='Component-icon-container'>
                     <canvas className='Component-icon' height='100' width='100'></canvas>

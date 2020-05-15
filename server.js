@@ -8,7 +8,7 @@ server.use(cors());
 
 const WB_API_KEY_A = process.env.WB_API_KEY_A
 const WB_API_KEY_B = process.env.WB_API_KEY_B
-const PORT = 8080;
+const PORT = 9036;
 const axios = require('axios');
 
 server.use(express.json())

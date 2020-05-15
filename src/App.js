@@ -6,6 +6,7 @@ import Login from './components/Login'
 import Footer from './components/Footer'
 import LocalForecast from './components/LocalForecast'
 import Header from './components/Header'
+import Predictions from './components/Predictions'
 // import Success from './components/Success'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
