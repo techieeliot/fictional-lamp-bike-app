@@ -13,45 +13,45 @@ import Forecast from './components/LocalForecast'
 import LocationForm from './components/LocationForm'
 
 const App = function() {
- 
+  const toggleWatch = true
 
-    return (
-      <Router>
-        <Nav />
-        <Switch> 
-          <Route path='/' exact>
-            <Home 
-              title='Welcome to Biker'
-              articleTitle="Would you like to check the forecast for your current location? Let's Ride"
-            />
-          </Route>
-          <Route path='/localforecast'>
-            <Header title='Your Local Forecast' />
-            <LocalForecast 
-              articleTitle="Today's Weather"
-            />
-          </Route>
-          <Route path='/locationform'>
-            <Header title='City Search' />
-            <LocationForm 
-              articleTitle="Find Your Weather by Searching"
-            />
-          </Route>
-          <Route path='/signup'>
-            <Signup 
-              title='Sign up'
-              articleTitle='Fill in your info'
-            />
-          </Route>
-          <Route path='/login'>
-            <Login 
-              title='Login'
-              articleTitle='Fill in your info'
-            />
-          </Route>
-        </Switch>
-        <Footer /> 
-      </Router>
+  return (
+    <Router>
+      <Nav />
+      <Switch> 
+        <Route path='/' exact>
+          <Home 
+            title='Welcome to Biker'
+            articleTitle="Find your location to know if it's a good day for a ride."
+          />
+        </Route>
+        <Route path='/localforecast'>
+          <Header title='Your Local Forecast' />
+          <LocalForecast 
+            articleTitle="Today's Weather"
+          />
+        </Route>
+        <Route path='/locationform'>
+          <Header title='City Search' />
+          <LocationForm 
+            articleTitle="Find Your Weather Forecast by Searching"
+          />
+        </Route>
+        <Route path='/signup'>
+          <Signup 
+            title='Sign up'
+            articleTitle='Fill in your info'
+          />
+        </Route>
+        <Route path='/login'>
+          <Login 
+            title='Login'
+            articleTitle='Fill in your info'
+          />
+        </Route>
+      </Switch>
+      <Footer /> 
+    </Router>
     )
 }
 

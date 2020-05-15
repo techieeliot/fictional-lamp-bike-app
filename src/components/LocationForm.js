@@ -1,40 +1,33 @@
+/*global google*/ 
 import React, { useState } from 'react'
 import Input from './Input'
 import Button from './Button'
 import { Link } from 'react-router-dom'
-
+import axios from 'axios';
+import PlacesAutocomplete, { 
+    geocodeByAddress, 
+    getLatLng 
+} from 'react-places-autocomplete'
 
 const LocationForm = (props) => {
-    const [locationForm, setLocationForm] = useState([])
-
-    const handleChange = e => {
-        setLocationForm({
-            ...locationForm,
-            [e.target.name]: e.target.value
-        })
+    const [address, setAddress] = useState('')
+    const [position, setPosition] = useState({lat: null, lng: null})
+    const [ weather, setWeather ] = useState([])
+    const [GOOGLE_API_KEY] = useState('AIzaSyChibLEhSXx0b-odGYQtHKOLkb6ZVpJXi8')
+    const handleSelect = async (value) => {
+        const results = geocodeByAddress(value)
+        const coords = getLatLng(results[0])
+        setAddress(value)
+        setPosition(coords)
     }
 
-    const handleSubmit = async (e) => {
-        
-        const formData = new FormData();
-        formData.append('city-search', locationForm.username);
-        formData.append('password', locationForm.password);
-        formData.append('verifyPassword', locationForm.verifyPassword);
-        formData.append('firstName', locationForm.firstName);
-        formData.append('lastName', locationForm.lastName);
-        formData.append('phone', locationForm.phone);
-        const response = await fetch('http://localhost:8001/', { method: 'POST', body: formData });
-        console.log(response.body)
-        if (response.status === 400) {
-            alert('That username is already taken! Please try again or try resetting your password!')
-        } else if (response.status === 200) {
-            alert('Sign Up Successful!')
-        }
-    }
+    
+
+
     return(
-        <>  
+        <>
             <aside className='Component-icon-container'>
-                {props.articleTitle}
+                <h2>{props.articleTitle}</h2>
                 <canvas className='Component-icon' height='100' width='100'></canvas>
             </aside>
             <article className='Component-content'>
@@ -43,7 +36,7 @@ const LocationForm = (props) => {
                     <p className='Component-location'>Weather TBD</p>
                 </div>
             </article>
-            <section className='Component-details-section'>
+            <section className='Component-details-section App-flexbox'>
                 <div className='Component-detail'>
                     <h3 className='Component-title'>Precipitation</h3>
                     <p className='Component-value'>TBD</p>
@@ -57,21 +50,41 @@ const LocationForm = (props) => {
                     <p className='Component-value'>TBD</p>
                 </div>
             </section>
-            <form method='get' className='Component-city-search-container'>
-                <Input
-                    inputName='city-search'
-                    labelText='Enter location'
-                    inputType='text'
-                    inputPlaceholer='e.g. San Diego, CA'
-                    handleChange = {handleChange}
-                />
-            </form>
-            <Link to='/'>
-                <Button 
-                    text='Submit'
-                    onClick={handleSubmit}
-                />
-            </Link>
+            <PlacesAutocomplete 
+                value={address} 
+                onChange={setAddress} 
+                onSelect={handleSelect}
+            >
+                {/* Below is the render prop function */}
+                {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
+                    <div className='App-form-column Component-city-search-container'>
+                        <label htmlFor='city-search'>Enter a location:</label>
+                        <input 
+                            {...getInputProps({
+                                type:'text',
+                                name:'city-search',
+                                id:'city-search',
+                                placeholder:'e.g. San Diego, CA',
+                                required:'required'
+                            })}
+                        />
+                        <div className='Component-city-search-suggestion'>
+                            {(loading) ? <div className='Component-city-search-is-loading'>loading...</div> : null}
+                            {suggestions.map((suggestion) => {
+                                const style = {
+                                    backgroundColor: suggestion.active ? '#ec6e33' : '#fff',
+                                    color: suggestion.active ? '#fff' : 'inherit',
+                                }
+                                return (
+                                    <div {...getSuggestionItemProps(suggestion, {style})}>
+                                    {suggestion.description}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+            </PlacesAutocomplete> 
         </>
     )
 }

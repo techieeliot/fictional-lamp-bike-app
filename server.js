@@ -6,7 +6,8 @@ const server = express();
 const cors = require('cors');
 server.use(cors());
 
-const WB_API_KEY = process.env.WB_API_KEY
+const WB_API_KEY_A = process.env.WB_API_KEY_A
+const WB_API_KEY_B = process.env.WB_API_KEY_B
 const PORT = 8080;
 const axios = require('axios');
 
@@ -25,7 +26,7 @@ const getCoordinates = (req) => {
   });
 }
 
-server.get('/',  (req, res, next) => {
+server.get('/',  (req, res) => {
   const lat = req.query.lat
   const lon = req.query.lon
   let i = 0
@@ -34,16 +35,17 @@ server.get('/',  (req, res, next) => {
     i++
   }
   console.log(lat, lon)
-  const API_URL = `http://api.weatherbit.io/v2.0/forecast/daily?key=${WB_API_KEY}&days=8&units=I&lat=${lat}&lon=${lon}`
-  axios.get(API_URL)
+  const API_WEEK_URL = `http://api.weatherbit.io/v2.0/forecast/daily?key=${WB_API_KEY_B}&days=7&units=I&lat=${lat}&lon=${lon}`
+  const API_SEVERE_URL = `https://api.weatherbit.io/v2.0/alerts?lat=${lat}&lon=${lon}&key=${WB_API_KEY_B}`
+  axios.get(API_WEEK_URL)
   .then(response => response.data)
   // .then(data => console.log(data))
   .then(data => res.send(data))
   .catch(err => console.log(err))
 })
 
-server.post('/weather', (req, res) => {
-
+server.post('/locationform', (req, res) => {
+  console.log(req.body)
 })
 //Sign up
 // server.post('/signup', createUser)

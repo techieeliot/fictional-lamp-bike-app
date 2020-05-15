@@ -1,7 +1,6 @@
 import React from 'react'
-import shieldLogo from '../images/logo-orange-shield.svg'
+import shieldLogo from '../images/logos/logo-orange-shield.svg'
 import { Link } from 'react-router-dom'
-import { white } from 'color-name'
 
 function Nav() {
     const navStyle = {
