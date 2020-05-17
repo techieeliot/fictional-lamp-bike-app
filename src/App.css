@@ -28,7 +28,7 @@ body {
 
 .App-header, .App-footer {
   background: #F9F7C2;
-  margin-top: calc(1rem + 2vmin);
+  margin-top: calc(4rem + 2vmin);
 }
 
 .App-header {

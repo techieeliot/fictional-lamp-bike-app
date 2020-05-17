@@ -51,17 +51,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "main": "server.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/techieeliot/fictional-lamp-bike-app.git"
-  },
-  "author": "Eliot Sanford",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/techieeliot/fictional-lamp-bike-app/issues"
-  },
-  "homepage": "https://github.com/techieeliot/fictional-lamp-bike-app#readme"
-}
+      ]	    
+    }
+  }
