@@ -47,6 +47,7 @@ server.get('/',  (req, res) => {
 server.post('/locationform', (req, res) => {
   console.log(req.body)
 })
+
 //Sign up
 // server.post('/signup', createUser)
 

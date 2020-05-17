@@ -100,14 +100,13 @@ const LocalForecast = (props) => {
                     <h3 className='Component-good-day-index'>
                         {(goodDayIndex)? "Today is good day! Let's ride!" : "Today is a not so good. Try again tomorrow." }
                     </h3>
-                    <img 
-                        src={(goodDayIndex)? 
-                            <FontAwesomeIcon icon={faMotorcycle}/> : 
-                            <FontAwesomeIcon icon={faExclamationCircle}/> 
-                        } 
-                        className='Component-good-day-index-photo-large' 
-                        alt='Good day indicator' 
-                    />
+                    <h3 className='Component-good-day-index-photo-large'>
+                    {(goodDayIndex)? 
+                        (<FontAwesomeIcon icon={faMotorcycle}/>) : 
+                        (<FontAwesomeIcon icon={faExclamationCircle}/>) 
+                    } 
+                    </h3>
+                    
                 </aside>
                 <article className='Component-content'>
                     <div className='Component-general'>
@@ -156,9 +155,11 @@ const LocalForecast = (props) => {
                         <button className='App-button'>See a 7-day forecast</button>
                     </div>
                 </article>     
-                <Predictions />
+                <Predictions 
+                    weatherData = {weatherData.map(data => data)}
+                />
 
-                {weather.data}
+                
             </>
             ) : (
             <>

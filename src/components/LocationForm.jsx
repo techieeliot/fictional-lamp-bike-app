@@ -1,6 +1,5 @@
 /*global google*/ 
 import React, { useState } from 'react'
-import axios from 'axios';
 import PlacesAutocomplete, { 
     geocodeByAddress, 
     getLatLng 
@@ -8,14 +7,15 @@ import PlacesAutocomplete, {
 
 const LocationForm = (props) => {
     const [address, setAddress] = useState('')
-    const [position, setPosition] = useState({lat: null, lng: null})
     const [ weatherData, setWeatherData ] = useState([])
-    const [GOOGLE_API_KEY] = useState('AIzaSyChibLEhSXx0b-odGYQtHKOLkb6ZVpJXi8')
     const handleSelect = async (value) => {
         const results = geocodeByAddress(value)
-        const coords = getLatLng(results?.[0].geometry.location)
-        setAddress(value)
-        setPosition(coords)
+        const coords = getLatLng(results[0])
+        console.log(results);
+        console.log(coords);
+        
+        // setAddress(value)
+        // setPosition(coords)
     }
     return(
         <>
