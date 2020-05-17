@@ -28,7 +28,7 @@ body {
 
 .App-header, .App-footer {
   background: #F9F7C2;
-  margin-top: 10vh;
+  margin-top: calc(1rem + 2vmin);
 }
 
 .App-header {
@@ -190,7 +190,8 @@ body {
 
   .Component-good-day-index-photo-large {
     width: 200px;
-
+    font-size: calc(10em + 1px);
+    margin: 0 auto;
   }
 
   .Component-icon-container {
@@ -205,11 +206,14 @@ body {
 /* TABLE STYLING */
 
 .Table-seven-day  {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-collapse:collapse;
   border-color:#aaa;
   border-spacing:0;
   margin:0px auto;
-  width: 350px;
+  width: calc(20em + 10px);  
   margin-top: 1em;
   filter: drop-shadow(0.1rem 0.1rem 0.25rem gray);
 }
@@ -221,12 +225,11 @@ body {
   border-style:solid;
   border-top-width:1px;
   border-width:0px;
-  color:#333;
-  font-family:Arial, sans-serif;
-  font-size:14px;
+  font-size: calc(20px + 3vmin);
   overflow:hidden;
   padding:10px 5px;
   word-break:normal;
+  width: 150px
 }
 
 .Table-seven-day th {
@@ -237,21 +240,14 @@ body {
   border-top-width:1px;
   border-width:0px;
   color:#fff;
-  font-family:Arial, sans-serif;
-  font-size:14px;
+  font-size: calc(20px + 3vmin);
   font-weight:normal;
   overflow:hidden;
   padding:10px 5px;
   word-break:normal;
 }
 
-.Table-seven-day .Table-seven-day-even {
-  color:#922f34;
-  text-align:center;
-  vertical-align:top
-}
-
-.Table-seven-day .Table-seven-day-header {
+.Table-seven-day thead {
   color:#ffffff;
   position:-webkit-sticky;
   position:sticky;
@@ -261,12 +257,14 @@ body {
   will-change:transform
 }
 
-.Table-seven-day .Table-seven-day-odd {
-  background-color:#f9f7c2;
+.Table-seven-day tr {
   color:#922f34;
   text-align:center;
   vertical-align:top
 }
+  .Table-seven-day tr:nth-child(even) {
+    background-color:#f9f7c2
+  }
 
 
 /* MISCELLANEOUS STYLING */

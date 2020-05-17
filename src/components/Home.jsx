@@ -11,8 +11,8 @@ const Home = (props) => {
             <Header title={props.title} />
             {/* <main className='App-main'> */}
             <h2>{props.articleTitle}</h2>
-            <p>The Biker App can send your location's 7-day forecast.</p>
-            <p>Plus, the Biker App will tell you if today is a good day</p>
+            <p>The Biker App can send your location's 7-day forecast <br />
+            and will tell you if today is a good day!</p>
             <p>'Find My Location' below will prompt your device to ask your location.</p>
             <Link to='/localforecast'>
                 <Button text='Find My Location' />
