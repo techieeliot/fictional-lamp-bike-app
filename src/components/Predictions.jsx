@@ -1,23 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarAlt, 
     faTint,
     faThermometerThreeQuarters,
     faWind,
     faMotorcycle,
-    faExclamationCircle
+    faExclamationCircle,
+    faTachometerAlt
 } from '@fortawesome/free-solid-svg-icons'
-import { waitFor, waitForElementToBeRemoved } from '@testing-library/react'
+// import { useGoodDayIndex } from '../customHooks/useGoodDayIndex'
+import { useWeather } from '../customHooks/useWeather'
+import moment from 'moment'
 
 const Predictions = (weatherData) => {
     // let todaysDate = weatherData?.[0].datetime
-    
-    // console.log(todaysDate)
+    const weather = useWeather();
+    // const index = useGoodDayIndex()
     return (
         <>
-        
             <section className="Table-seven-day-container">
-                <table id="Table-seven-day-1xsHw" className="Table-seven-day">
+                <h3>This week's forecast...</h3>
+                <p>Good Day = <FontAwesomeIcon icon={faMotorcycle}/></p>
+                <p>Not So Good Day = <FontAwesomeIcon icon={faExclamationCircle}/></p>
+                <table id="Table-forecast" className="Table-seven-day">
                 <thead>
                     <tr>
                         <th className="Table-seven-day-header">
@@ -33,35 +38,51 @@ const Predictions = (weatherData) => {
                             <FontAwesomeIcon icon={faWind}/>
                         </th>
                         <th className="Table-seven-day-header">
-                            <FontAwesomeIcon icon={faMotorcycle}/>
+                            <FontAwesomeIcon icon={faTachometerAlt}/>
                         </th>
                     </tr>
                 </thead>
-                <div>
-                    
-                {/* {(typeof todaysDate != 'undefined') ? todaysDate : 'nothing'} */}
-                </div>
                 <tbody>
-                    <tr>
-                        <td>Sun</td>
-                        <td>90%</td>
-                        <td>82/66F</td>
-                        <td>8 mph</td>
-                        <td>
-                            { 
-                            <FontAwesomeIcon icon={faExclamationCircle}/>
-                            } 
-                        </td>
+                    {(typeof weather.data != 'undefined') ? 
+                    weather.data.map((data, index) => {
+                        return (
+                            <tr key={index}>
+                                <td>
+                                    {/* e.g. Mon. */}
+                                    {moment(data.datetime).format('ddd')}
+                                </td>
+                                <td>
+                                    {`${data.pop}%`}
+                                </td>
+                                <td>
+                                    {`${Math.round(data.high_temp)}/${Math.round(data.low_temp)}F`}
+                                </td>
+                                <td>
+                                    {`${Math.round(data.wind_spd)}m`}
+                                </td>
+                                <td>
+                                    {
+                                        (data.high_temp <= 100 && data.low_temp >= 32 && data.pop <= 50 && data.wind_spd <=25 ) 
+                                        ? <FontAwesomeIcon icon={faMotorcycle}/> :
+                                        <FontAwesomeIcon icon={faExclamationCircle}/>
+                                    } 
+                                </td>
+                            </tr>
+                        )
+                    
+                    })
+                    : (
+
+                        <tr>
+                        <td>Loading... </td>
+                        <td>Loading... </td>
+                        <td>Loading... </td>
+                        <td>Loading... </td>
+                        <td>Loading... </td>
                     </tr>
-                    <tr>
-                        <td className="Table-seven-day-row">Mon</td>
-                        <td className="Table-seven-day-row">100%</td>
-                        <td className="Table-seven-day-row">100/100F</td>
-                        <td className="Table-seven-day-row">100 mph</td>
-                        <td className="Table-seven-day-row">
-                            { <FontAwesomeIcon icon={faExclamationCircle}/> } 
-                        </td>
-                    </tr>
+                        ) 
+
+                    }
                 </tbody>
                 </table>
             </section>

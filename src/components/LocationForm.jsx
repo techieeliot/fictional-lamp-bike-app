@@ -7,7 +7,6 @@ import PlacesAutocomplete, {
 
 const LocationForm = (props) => {
     const [address, setAddress] = useState('')
-    const [ weatherData, setWeatherData ] = useState([])
     const handleSelect = async (value) => {
         const results = geocodeByAddress(value)
         const coords = getLatLng(results[0])
