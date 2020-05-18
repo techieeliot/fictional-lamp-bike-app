@@ -35,9 +35,9 @@ const Signup = (props) => {
         }
     }
 
-    const checkPassword = () => {
-       return signUpForm.passwordCheck===signUpForm.verifyPassword
-    }
+    // const checkPassword = () => {
+    //    return signUpForm.passwordCheck===signUpForm.verifyPassword
+    // }
     return(
         <>
             <Header 

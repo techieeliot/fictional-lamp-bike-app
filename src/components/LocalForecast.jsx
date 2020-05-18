@@ -1,6 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { usePosition } from 'use-position';
-import axios from 'axios';
+import React from 'react'
 import Predictions from './Predictions' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarAlt, 
@@ -8,105 +6,85 @@ import { faCalendarAlt,
     faThermometerThreeQuarters,
     faWind,
     faMotorcycle,
-    faExclamationCircle
+    faExclamationCircle,
+    faTachometerAlt
 } from '@fortawesome/free-solid-svg-icons'
+import weatherMan from '../images/weather.svg'
+// import { useGoodDayIndex } from '../customHooks/useGoodDayIndex'
+import { useWeather } from '../customHooks/useWeather'
+import moment from 'moment'
 
 const LocalForecast = (props) => {
-    const watch = false
-    const {latitude, longitude } =  usePosition(watch, {enableHighAccuracy: true, maximumAge: 300});
-    const [ weather, setWeather ] = useState([])
-    
-    const firstRender = useRef(true)
+    const weather = useWeather();
 
-    useEffect( () => {
-        if (firstRender.current) {
-            firstRender.current = false
-            return
-        } else 
-        if (latitude && longitude) {
-            axios.get('http://localhost:9036', {
-                params: {
-                    lat: latitude, 
-                    lon: longitude
-                }
-            })
-            .then(response => response.data)
-            .then(data => setWeather(data))
-            // .then(data => setData(data.data))
-            // .then(data => setToday(data.data[0]))
-            .catch(err => console.log(err));
-        }
-    }, [latitude, longitude])
-    // console.log(weather.data[0])
-    // let description = weather.weather.description
-    let cityName = weather.city_name
-    let stateCode = weather.state_code
-    let countryCode = weather.country_code
+    const cityName = weather.city_name
+    const stateCode = weather.state_code
+    const countryCode = weather.country_code
+    const todaysWeather = weather.data?.[0]
+    const precipitation = todaysWeather?.pop
+    const highTemperature = todaysWeather?.high_temp
+    const lowTemperature = todaysWeather?.low_temp
+    const windSpeed = todaysWeather?.wind_spd
+    const description = todaysWeather?.weather.description
 
-    let todaysWeather = weather.data?.[0]
-    let precipitation = todaysWeather?.pop
-    let highTemperature = todaysWeather?.high_temp
-    let lowTemperature = todaysWeather?.low_temp
-    let windSpeed = todaysWeather?.wind_spd
-    let iconCode = todaysWeather?.weather.icon
-    let description = todaysWeather?.weather.description
-    let weatherData = weather.data
-    // let iconPath = `${iconDirName}${iconCode}.png`
-
-    console.log(weather.data?.[0].weather.icon)
-    // console.log(iconPath)
-    console.log(typeof cityName)
-
-    const dateBuilder = (d) => {
-        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    
-        let day = days[d.getDay()];
-        let date = d.getDate();
-        let month = months[d.getMonth()];
-        let year = d.getFullYear();
-    
-        return `${day} ${month} ${date}, ${year}`
-      }
-
-    const useGoodDayIndex = (high, low, rain, wind) => {
-        if (high <= 100 && low >= 32 && rain >= 40 && wind >=25 ){
-            return true
-        } else{
-            return false
-        }
-    }
-
-    const goodDayIndex = useGoodDayIndex(highTemperature, lowTemperature, precipitation, windSpeed)
-
+    // const goodDayIndex = useGoodDayIndex(highTemperature, lowTemperature, precipitation, windSpeed)
+    console.log(weather)
     return(
         <>  
-            {/* {weather.map(data => `<h1>${data}</h1>`)} */}
-            <h2>{props.articleTitle}</h2>
+            {/* WEATHER MAN ILLUSTRATION WITH HEADING */}
+            <section>
+                <img 
+                    src={weatherMan} 
+                    className='App-drawing-medium' 
+                    alt='A weather man pointing to a partly cloudy good day of the week'
+                />
+                <h2>{props.articleTitle}</h2>
+                <FontAwesomeIcon icon={faTachometerAlt} className='Component-good-day-index-photo'/>
+            </section>
             
             {(typeof cityName != 'undefined') ? (
-            <>
+                <>
                 <aside className='Component-icon-container'>
                     {/* ADD ICON LOGIC LATER
                     icons in specific ranges
                     <img 
-                        src={(iconPath) ? {iconPath} : `${process.env.PUBLIC_URL}images/icons/c01d.png`} 
-                        className='Component-icon' 
-                        height='100' width='100' 
-                        alt='weather description icon'
-                    /> */}
+                    src={(iconPath) ? {iconPath} : `${process.env.PUBLIC_URL}images/icons/c01d.png`} 
+                    className='Component-icon' 
+                    height='100' width='100' 
+                    alt='weather description icon'
+                /> */}
                 </aside>
+
+                {/* IS TODAY A GOOD DAY */}
                 <aside className='Component-good-day-container'>
-                    <h3 className='Component-good-day-index'>
-                        {(goodDayIndex)? "Today is good day! Let's ride!" : "Today is a not so good. Try again tomorrow." }
-                    </h3>
-                    <h3 className='Component-good-day-index-photo-large'>
-                    {(goodDayIndex)? 
-                        (<FontAwesomeIcon icon={faMotorcycle}/>) : 
-                        (<FontAwesomeIcon icon={faExclamationCircle}/>) 
-                    } 
-                    </h3>
+                    {/* TERNARY FOR A GOOD DAY */}
+                    {(highTemperature <= 100 && lowTemperature >= 32 && precipitation <= 50 && windSpeed <=25 ) 
+                    ? 
+                    // TRUE = GOOD DAY OUTPUT
+                    <>
+                        <h3 className='Component-good-day-index'>The index results are in...<br />
+                            Today is
+                        </h3> 
+                        <p className='Component-good-day-index-icon-large'>
+                            Good...<br />
+                            <FontAwesomeIcon icon={faMotorcycle}/><br/>
+                            Let's ride!
+                        </p>
+                    </>
+                    : 
+                    // TERNARY FALSE = NOT GOOD DAY OUTPUT
+                    <>
+                        <h3 className='Component-good-day-index'>The index results are in...<br />
+                            Today is
+                        </h3> 
+                        <p className='Component-good-day-index-icon-large'>
+                            Not So Good...<br />
+                            <FontAwesomeIcon icon={faExclamationCircle}/><br />
+                            See the 7-day forecast <br />to plan your next ride.
+                        </p>
+                    </>
                     
+                    }
                 </aside>
                 <article className='Component-content'>
                     <div className='Component-general'>
@@ -115,8 +93,9 @@ const LocalForecast = (props) => {
                             {`${cityName}, ${stateCode}, ${countryCode}`}
                         </h3>
                         <p className='Component-date'>
-                            {/* Friday May 15, 2020 */}
-                            {dateBuilder(new Date())}
+                            <FontAwesomeIcon icon={faCalendarAlt} />
+                            {/* Friday May 15th 2020 */}
+                            <span> {moment().format('dddd MMMM Do YYYY')}</span> 
                         </p>
                         <p className='Component-status'>
                             {/* Overcast */}
@@ -124,45 +103,46 @@ const LocalForecast = (props) => {
                         </p>
                     </div>
                 </article>
+
+                {/* CARDS FOR TODAY'S WEATHER */}
                 <section className='Component-details-section App-flexbox'>
                     <div className='Component-detail'>
-                        <h3 className='Component-title'>Precipitation</h3>
+                        <h3 className='Component-title'>
+                            <FontAwesomeIcon icon={faTint}/> <br />
+                            Precipitation
+                        </h3>
                         <p className='Component-value'>
                             {/* e.g. 30% */}
                             {`${Math.round(precipitation)}%`}
                         </p>
                     </div>
                     <div className='Component-detail'>
-                        <h3 className='Component-title'>Temperature</h3>
+                        <h3 className='Component-title'>
+                            <FontAwesomeIcon icon={faThermometerThreeQuarters}/> <br />
+                            Temperature
+                        </h3>
                         <p className='Component-value'>
                             {/* 75˚ F / 50˚ F */}
                             {`${Math.round(highTemperature)}˚ F / ${Math.round(lowTemperature)}˚ F`}
                         </p>
                     </div>
                     <div className='Component-detail'>
-                        <h3 className='Component-title'>Wind</h3>
+                        <h3 className='Component-title'>
+                            <FontAwesomeIcon icon={faWind}/> <br />
+                            Wind
+                        </h3>
                         <p className='Component-value'>
                             {/* 5 mph */}
                             {`${Math.round(windSpeed)} mph`}
                         </p>
                     </div>
-                </section>
-                <article className='Component-content'>
-                    <div className='Component-general'>
-                        <h3 className='Component-more results'>
-                            Want more results?
-                        </h3>
-                        <button className='App-button'>See a 7-day forecast</button>
-                    </div>
-                </article>     
-                <Predictions 
-                    weatherData = {weatherData.map(data => data)}
-                />
-
-                
+                </section> 
+                {/* PREDICTIONS IS THE SEVEN-DAY FORECAST */}
+                <Predictions />       
             </>
             ) : (
             <>
+                {/* THE BLANK SECTIONS UNTIL THE API FETCH IS COMPLETE */}
                 <aside className='Component-icon-container'>
                 {/* icon will change based on state */}
                 {/* <img 
@@ -178,29 +158,39 @@ const LocalForecast = (props) => {
                             Location TBD
                         </h3>
                         <p className='Component-date'>
+                            <FontAwesomeIcon icon={faCalendarAlt} />
                             {/* Friday May 15, 2020 */}
-                            {dateBuilder(new Date())}
+                            <span> {moment().format('dddd MMMM Do YYYY')}</span> 
                         </p>
                         <p className='Component-status'>{(description) ? description : 'Weather TBD'}</p>
                     </div>
                 </article>
                 <section className='Component-details-section App-flexbox'>
                     <div className='Component-detail'>
-                        <h3 className='Component-title'>Precipitation</h3>
+                        <h3 className='Component-title'>
+                            <FontAwesomeIcon icon={faTint}/> <br />
+                            Precipitation
+                        </h3>
                         <p className='Component-value'>
-                            TBD
+                            Loading...
                         </p>
                     </div>
                     <div className='Component-detail'>
-                        <h3 className='Component-title'>Temperature</h3>
+                        <h3 className='Component-title'>
+                            <FontAwesomeIcon icon={faThermometerThreeQuarters}/> <br />
+                            Temperature
+                        </h3>
                         <p className='Component-value'>
-                            TBD
+                            Loading...
                         </p>
                     </div>
                     <div className='Component-detail'>
-                        <h3 className='Component-title'>Wind</h3>
+                        <h3 className='Component-title'>
+                            <FontAwesomeIcon icon={faWind}/> <br />
+                            Wind
+                        </h3>
                         <p className='Component-value'>
-                            TBD
+                            Loading...
                         </p>
                     </div>
                 </section>

@@ -1,4 +1,8 @@
-    
+import { useState, useRef, useEffect } from 'react'
+import { usePosition } from 'use-position';
+import axios from 'axios';
+
+export const useWeather = () => {
     const watch = false
     const {latitude, longitude } =  usePosition(watch, {enableHighAccuracy: true, maximumAge: 300});
     const [ weather, setWeather ] = useState([])
@@ -24,3 +28,5 @@
             .catch(err => console.log(err));
         }
     }, [latitude, longitude])
+    return weather
+}

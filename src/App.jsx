@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Nav from './components/Nav'
 import Home from './components/Home'
 import Signup from './components/Signup'
@@ -6,16 +6,13 @@ import Login from './components/Login'
 import Footer from './components/Footer'
 import LocalForecast from './components/LocalForecast'
 import Header from './components/Header'
-import Predictions from './components/Predictions'
 // import Success from './components/Success'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
-import Forecast from './components/LocalForecast'
 import LocationForm from './components/LocationForm'
 
 const App = function() {
-  const toggleWatch = true
-
+  
   return (
     <Router>
       <Nav />
@@ -29,7 +26,7 @@ const App = function() {
         <Route path='/localforecast'>
           <Header title='Your Local Forecast' />
           <LocalForecast 
-            articleTitle="Today's Weather"
+            articleTitle="Today's Good Day Index"
           />
         </Route>
         <Route path='/locationform'>
