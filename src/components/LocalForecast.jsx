@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Predictions from './Predictions' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarAlt, 
@@ -27,8 +27,20 @@ const LocalForecast = (props) => {
     const windSpeed = todaysWeather?.wind_spd
     const description = todaysWeather?.weather.description
 
-    // const goodDayIndex = useGoodDayIndex(highTemperature, lowTemperature, precipitation, windSpeed)
-    console.log(weather)
+    
+    const initialPredictions = window.localStorage.getItem('predictions') || []
+    const [ predictions, setPredictions ] = useState(initialPredictions)
+    const createPredictions = () => {
+        weather.map( data => 
+            setPredictions(
+                (data.high_temp <= 100 && data.low_temp >= 32 && data.pop <= 50 && data.wind_spd <=25) ? true : false
+            )
+        )
+    }
+    useEffect( () => {
+        window.localStorage.setItem('predictions', predictions)
+    })
+    console.log(predictions)
     return(
         <>  
             {/* WEATHER MAN ILLUSTRATION WITH HEADING */}
@@ -68,7 +80,8 @@ const LocalForecast = (props) => {
                         <p className='Component-good-day-index-icon-large'>
                             Good...<br />
                             <FontAwesomeIcon icon={faMotorcycle}/><br/>
-                            Let's ride!
+                            Let's ride!<br />
+                            See the 7-Day Forecast for more...
                         </p>
                     </>
                     : 
@@ -80,7 +93,8 @@ const LocalForecast = (props) => {
                         <p className='Component-good-day-index-icon-large'>
                             Not So Good...<br />
                             <FontAwesomeIcon icon={faExclamationCircle}/><br />
-                            See the 7-day forecast <br />to plan your next ride.
+                            Click the 7-Day Forecast <br />
+                            to plan your next ride.
                         </p>
                     </>
                     
@@ -137,8 +151,9 @@ const LocalForecast = (props) => {
                         </p>
                     </div>
                 </section> 
+                <button onClick={createPredictions}>{(predictions) ? 'Refresh 7-Day Forecast' : 'See 7-Day Forecast'}</button>
                 {/* PREDICTIONS IS THE SEVEN-DAY FORECAST */}
-                <Predictions />       
+                {(predictions) ? <Predictions /> : '' }  
             </>
             ) : (
             <>
