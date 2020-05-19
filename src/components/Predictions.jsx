@@ -8,7 +8,7 @@ import { faCalendarAlt,
     faExclamationCircle,
     faTachometerAlt
 } from '@fortawesome/free-solid-svg-icons'
-// import { useGoodDayIndex } from '../customHooks/useGoodDayIndex'
+import { useGoodDayIndex } from '../customHooks/useGoodDayIndex'
 import { useWeather } from '../customHooks/useWeather'
 import moment from 'moment'
 
@@ -59,7 +59,7 @@ const Predictions = (weatherData) => {
                                 </td>
                                 <td>
                                     {
-                                        (window.localStorage.getItem('predictions')[index]) 
+                                        (data.high_temp <= 100 && data.low_temp >= 32 && data.pop <= 50 && data.wind_spd <=25)
                                         ? <FontAwesomeIcon icon={faMotorcycle}/> :
                                         <FontAwesomeIcon icon={faExclamationCircle}/>
                                     } 

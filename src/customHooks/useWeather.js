@@ -10,6 +10,7 @@ export const useWeather = () => {
     const firstRender = useRef(true)
 
     useEffect( () => {
+        // e.preventDefault()
         if (firstRender.current) {
             firstRender.current = false
             return

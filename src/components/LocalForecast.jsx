@@ -28,19 +28,24 @@ const LocalForecast = (props) => {
     const description = todaysWeather?.weather.description
 
     
-    const initialPredictions = window.localStorage.getItem('predictions') || []
+    const initialPredictions = () => window.localStorage.getItem('predictions') || []
     const [ predictions, setPredictions ] = useState(initialPredictions)
-    const createPredictions = () => {
-        weather.map( data => 
-            setPredictions(
-                (data.high_temp <= 100 && data.low_temp >= 32 && data.pop <= 50 && data.wind_spd <=25) ? true : false
-            )
-        )
-    }
+    
     useEffect( () => {
-        window.localStorage.setItem('predictions', predictions)
-    })
-    console.log(predictions)
+        window.localStorage.setItem( 'most-recent-weather-data', JSON.stringify(weather))
+    }, [weather])
+    
+    const initialDisplayPredictions = () => window.localStorage.getItem('displayPredictions') || false
+    const [displayPredictions, setDisplayPredictions] = useState(initialDisplayPredictions)
+    const sendPredictions = () => { 
+        setDisplayPredictions(true)
+        console.log(displayPredictions)
+    }
+
+    useEffect( () => { 
+        window.localStorage.setItem('displayPredictions', displayPredictions)
+    }, [displayPredictions])
+  
     return(
         <>  
             {/* WEATHER MAN ILLUSTRATION WITH HEADING */}
@@ -119,7 +124,7 @@ const LocalForecast = (props) => {
                 </article>
 
                 {/* CARDS FOR TODAY'S WEATHER */}
-                <section className='Component-details-section App-flexbox'>
+                <section className='Component-details-section Component-margin-bottom App-flexbox'>
                     <div className='Component-detail'>
                         <h3 className='Component-title'>
                             <FontAwesomeIcon icon={faTint}/> <br />
@@ -151,9 +156,13 @@ const LocalForecast = (props) => {
                         </p>
                     </div>
                 </section> 
-                <button onClick={createPredictions}>{(predictions) ? 'Refresh 7-Day Forecast' : 'See 7-Day Forecast'}</button>
+                <section className='Component-details-section App-flexbox'>
+
+                    <button className='App-button' onClick={sendPredictions}>{(displayPredictions) ? 'Refresh 7-Day Forecast' : 'See 7-Day Forecast'}</button>
+                </section>
                 {/* PREDICTIONS IS THE SEVEN-DAY FORECAST */}
-                {(predictions) ? <Predictions /> : '' }  
+                {(displayPredictions) ? <Predictions /> : '' }   
+                {/* <Predictions /> */}
             </>
             ) : (
             <>
