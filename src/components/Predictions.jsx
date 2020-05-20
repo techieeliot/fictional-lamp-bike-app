@@ -90,17 +90,21 @@ const Predictions = (weatherData) => {
                 </tbody>
                 </table>
                 {/* LEGEND FOR ICONS ON TABLE */}
-                <section className='Table-legend'>
+                <section className='Table-legend-container'>
                     <h4>Legend</h4>
-                    <p>Good Day Index = <FontAwesomeIcon icon={faTachometerAlt}/></p>
-                    <p>Good Day = <FontAwesomeIcon icon={faMotorcycle}/></p>
-                    <p>Not So Good Day = <FontAwesomeIcon icon={faExclamationCircle}/></p>
-                    <p>Day = <FontAwesomeIcon icon={faCalendarAlt}/></p>
-                    <p>Chance of Rain = <FontAwesomeIcon icon={faTint}/></p>
-                    <p>High and Low Temp = <FontAwesomeIcon icon={faThermometerThreeQuarters}/></p>
-                    <p>Wind Speed = <FontAwesomeIcon icon={faWind}/></p>
+                    <article className='Table-legend'>
+                        <p>Good Day Index = <FontAwesomeIcon icon={faTachometerAlt}/></p>
+                        <p>Day = <FontAwesomeIcon icon={faCalendarAlt}/></p>
+                        <p>Good Day = <FontAwesomeIcon icon={faMotorcycle}/></p>
+                        <p>Chance of Rain = <FontAwesomeIcon icon={faTint}/></p>
+                        <p>Not So Good Day = <FontAwesomeIcon icon={faExclamationCircle}/></p>
+                        <p>High and Low Temp = <FontAwesomeIcon icon={faThermometerThreeQuarters}/></p>
+                         <p></p> {/* EMPTY P FOR FLEXBOX */}
+                        <p>Wind Speed = <FontAwesomeIcon icon={faWind}/></p>
+                    </article>
                 </section>
             </section>
+        
     </>
     )
 }

@@ -315,6 +315,30 @@ body {
     background-color:#f9f7c2
   }
 
+  .Table-legend-container {
+    align-items: center;
+    margin:0px auto;
+    max-width: calc(20em + 10px);  
+   }
+  .Table-legend-container h4 {
+    margin-bottom: 0.1em;
+   }
+
+ .Table-legend {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+ }
+
+ .Table-legend p {
+   min-width: 200px;
+   margin: 0.25em;
+   text-align: left;
+ }
+
+
+
+
 /* APP DRAWINGS */
 .App-drawing-medium {
   width: 350px;
