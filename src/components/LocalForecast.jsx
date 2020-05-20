@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Predictions from './Predictions' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarAlt, 
@@ -27,8 +27,25 @@ const LocalForecast = (props) => {
     const windSpeed = todaysWeather?.wind_spd
     const description = todaysWeather?.weather.description
 
-    // const goodDayIndex = useGoodDayIndex(highTemperature, lowTemperature, precipitation, windSpeed)
-    console.log(weather)
+    
+    const initialPredictions = () => window.localStorage.getItem('predictions') || []
+    const [ predictions, setPredictions ] = useState(initialPredictions)
+    
+    useEffect( () => {
+        window.localStorage.setItem( 'most-recent-weather-data', JSON.stringify(weather))
+    }, [weather])
+    
+    const initialDisplayPredictions = () => window.localStorage.getItem('displayPredictions') || false
+    const [displayPredictions, setDisplayPredictions] = useState(initialDisplayPredictions)
+    const sendPredictions = () => { 
+        setDisplayPredictions(true)
+        console.log(displayPredictions)
+    }
+
+    useEffect( () => { 
+        window.localStorage.setItem('displayPredictions', displayPredictions)
+    }, [displayPredictions])
+  
     return(
         <>  
             {/* WEATHER MAN ILLUSTRATION WITH HEADING */}
@@ -68,7 +85,8 @@ const LocalForecast = (props) => {
                         <p className='Component-good-day-index-icon-large'>
                             Good...<br />
                             <FontAwesomeIcon icon={faMotorcycle}/><br/>
-                            Let's ride!
+                            Let's ride!<br />
+                            See the 7-Day Forecast for more...
                         </p>
                     </>
                     : 
@@ -80,7 +98,8 @@ const LocalForecast = (props) => {
                         <p className='Component-good-day-index-icon-large'>
                             Not So Good...<br />
                             <FontAwesomeIcon icon={faExclamationCircle}/><br />
-                            See the 7-day forecast <br />to plan your next ride.
+                            Click the 7-Day Forecast <br />
+                            to plan your next ride.
                         </p>
                     </>
                     
@@ -105,7 +124,7 @@ const LocalForecast = (props) => {
                 </article>
 
                 {/* CARDS FOR TODAY'S WEATHER */}
-                <section className='Component-details-section App-flexbox'>
+                <section className='Component-details-section Component-margin-bottom App-flexbox'>
                     <div className='Component-detail'>
                         <h3 className='Component-title'>
                             <FontAwesomeIcon icon={faTint}/> <br />
@@ -137,8 +156,13 @@ const LocalForecast = (props) => {
                         </p>
                     </div>
                 </section> 
+                <section className='Component-details-section App-flexbox'>
+
+                    <button className='App-button' onClick={sendPredictions}>{(displayPredictions) ? 'Refresh 7-Day Forecast' : 'See 7-Day Forecast'}</button>
+                </section>
                 {/* PREDICTIONS IS THE SEVEN-DAY FORECAST */}
-                <Predictions />       
+                {(displayPredictions) ? <Predictions /> : '' }   
+                {/* <Predictions /> */}
             </>
             ) : (
             <>

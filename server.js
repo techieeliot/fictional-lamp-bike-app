@@ -26,7 +26,7 @@ const getCoordinates = (req) => {
   });
 }
 
-server.get('/',  (req, res) => {
+server.get('/', async (req, res, e) => {
   const lat = req.query.lat
   const lon = req.query.lon
   let i = 0
@@ -37,7 +37,7 @@ server.get('/',  (req, res) => {
   console.log(lat, lon)
   const API_WEEK_URL = `http://api.weatherbit.io/v2.0/forecast/daily?key=${WB_API_KEY_B}&days=7&units=I&lat=${lat}&lon=${lon}`
   const API_SEVERE_URL = `https://api.weatherbit.io/v2.0/alerts?lat=${lat}&lon=${lon}&key=${WB_API_KEY_B}`
-  axios.get(API_WEEK_URL)
+  await axios.get(API_WEEK_URL)
   .then(response => response.data)
   // .then(data => console.log(data))
   .then(data => res.send(data))

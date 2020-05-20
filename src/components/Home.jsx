@@ -5,6 +5,7 @@ import LocationForm from './LocationForm'
 import { Link } from 'react-router-dom';
 import jump from '../images/celebration.svg'
 import pinpoint from '../images/pinpoint-map.svg'
+import { useWeather } from '../customHooks/useWeather'
 
 const Home = (props) => {
 
@@ -23,7 +24,7 @@ const Home = (props) => {
                 and will tell you if today is a good day!</p>
                 <p>'Find My Location' below will prompt your device to ask your location.</p>
                 <Link to='/localforecast'>
-                    <Button text='Find My Location' />
+                    <Button text='Find My Location' onSubmit={useWeather} />
                 </Link>
             </section>
             <section className='App-section'>

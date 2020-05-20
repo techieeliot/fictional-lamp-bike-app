@@ -8,20 +8,17 @@ import { faCalendarAlt,
     faExclamationCircle,
     faTachometerAlt
 } from '@fortawesome/free-solid-svg-icons'
-// import { useGoodDayIndex } from '../customHooks/useGoodDayIndex'
+import { useGoodDayIndex } from '../customHooks/useGoodDayIndex'
 import { useWeather } from '../customHooks/useWeather'
 import moment from 'moment'
 
 const Predictions = (weatherData) => {
-    // let todaysDate = weatherData?.[0].datetime
     const weather = useWeather();
-    // const index = useGoodDayIndex()
+   
     return (
         <>
             <section className="Table-seven-day-container">
                 <h3>This week's forecast...</h3>
-                <p>Good Day = <FontAwesomeIcon icon={faMotorcycle}/></p>
-                <p>Not So Good Day = <FontAwesomeIcon icon={faExclamationCircle}/></p>
                 <table id="Table-forecast" className="Table-seven-day">
                 <thead>
                     <tr>
@@ -62,17 +59,17 @@ const Predictions = (weatherData) => {
                                 </td>
                                 <td>
                                     {
-                                        (data.high_temp <= 100 && data.low_temp >= 32 && data.pop <= 50 && data.wind_spd <=25 ) 
+                                        (data.high_temp <= 100 && data.low_temp >= 32 && data.pop <= 50 && data.wind_spd <=25)
                                         ? <FontAwesomeIcon icon={faMotorcycle}/> :
                                         <FontAwesomeIcon icon={faExclamationCircle}/>
                                     } 
                                 </td>
                             </tr>
                         )
-                    
+                        
                     })
                     : (
-
+                        
                         <tr>
                         <td>Loading... </td>
                         <td>Loading... </td>
@@ -81,15 +78,15 @@ const Predictions = (weatherData) => {
                         <td>Loading... </td>
                     </tr>
                         ) 
-
+                        
                     }
                 </tbody>
                 </table>
+                <p>Good Day = <FontAwesomeIcon icon={faMotorcycle}/></p>
+                <p>Not So Good Day = <FontAwesomeIcon icon={faExclamationCircle}/></p>
             </section>
     </>
     )
 }
 
 export default Predictions
-
-
