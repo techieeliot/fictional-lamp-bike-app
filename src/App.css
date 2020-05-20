@@ -157,7 +157,7 @@ body {
 
 
   .App-nav-links li {
-    width: 3em;
+    width: 5em;
     border-radius: 5px;
   }
   .App-nav-links li:hover {
@@ -165,6 +165,18 @@ body {
     font-family: 'Katibeh', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     padding-top: 7px;
     font-size: calc(10px + 3vmin);
+  }
+  .Nav-fa-xsmall {
+    margin-top: 2em;
+    font-size: 0.5em
+  }
+
+  .Nav-green {
+    color: #8CE1AB
+  }
+  
+  .Nav-red {
+    color: #FD93A9
   }
 
   .App-wb-logo-small {

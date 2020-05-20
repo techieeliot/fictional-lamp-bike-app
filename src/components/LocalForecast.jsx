@@ -10,31 +10,66 @@ import { faCalendarAlt,
     faTachometerAlt
 } from '@fortawesome/free-solid-svg-icons'
 import weatherMan from '../images/weather.svg'
-// import { useGoodDayIndex } from '../customHooks/useGoodDayIndex'
-import { useWeather } from '../customHooks/useWeather'
+import { usePosition } from 'use-position';
+import axios from 'axios';
 import moment from 'moment'
 
 const LocalForecast = (props) => {
-    const weather = useWeather();
+    // get the position coords from the navigator.geolocation
+    const watch = false
+    const {latitude, longitude } =  usePosition(watch, {enableHighAccuracy: true, maximumAge: 300});
 
-    const cityName = weather.city_name
-    const stateCode = weather.state_code
-    const countryCode = weather.country_code
-    const todaysWeather = weather.data?.[0]
+    // local storage persists from previous data call, otherwise empty array
+    const initialWeather = () => {
+        window.localStorage.getItem('most-recent-weather-data' || [])
+        console.log(window.localStorage.getItem('most-recent-weather-data'))
+    }
+    const [ weather, setWeather ] = useState(initialWeather)
+    const weatherStorage = window.localStorage.getItem('most-recent-weather-data')
+
+    useEffect( () => {
+        // skip fetch request if local storage exists
+        // if (localStorage.getItem('most-recent-weather-data')) return
+        // if(weatherStorage && weather !== "undefined"){
+        //     return setWeather(weatherStorage)
+        // }
+
+        // if position coords, then go to the weather bit api with the lat and lon
+        if (typeof latitude !== "undefined" && typeof longitude !== "undefined") {
+            axios.get('http://localhost:9036', {
+                params: {
+                    lat: latitude, 
+                    lon: longitude
+                }
+            })
+            .then(response => response.data)
+            .then(data => setWeather(data))
+            .catch(err => console.log(err));
+        }
+    }, [latitude, longitude])
+        
+    // if no position coords, then... 
+    // once lat and lon change it will call for the data
+    // local storage in next useEffect kicks in after api call
+
+    useEffect( () => {
+        // send the data to local storage to use later
+        window.localStorage.setItem( 'most-recent-weather-data', JSON.stringify(weather))
+    }, [weather])
+
+    // optional chaining for the variables because waiting on API call to fetch data
+    const cityName = weather?.city_name
+    const stateCode = weather?.state_code
+    const countryCode = weather?.country_code
+    const todaysWeather = weather?.data?.[0]
     const precipitation = todaysWeather?.pop
     const highTemperature = todaysWeather?.high_temp
     const lowTemperature = todaysWeather?.low_temp
     const windSpeed = todaysWeather?.wind_spd
     const description = todaysWeather?.weather.description
 
-    
-    const initialPredictions = () => window.localStorage.getItem('predictions') || []
-    const [ predictions, setPredictions ] = useState(initialPredictions)
-    
-    useEffect( () => {
-        window.localStorage.setItem( 'most-recent-weather-data', JSON.stringify(weather))
-    }, [weather])
-    
+    // hooks for 7-day forecast button
+    // on click set to true and save locally
     const initialDisplayPredictions = () => window.localStorage.getItem('displayPredictions') || false
     const [displayPredictions, setDisplayPredictions] = useState(initialDisplayPredictions)
     const sendPredictions = () => { 
@@ -49,7 +84,7 @@ const LocalForecast = (props) => {
     return(
         <>  
             {/* WEATHER MAN ILLUSTRATION WITH HEADING */}
-            <section>
+            <section className='Component-header'>
                 <img 
                     src={weatherMan} 
                     className='App-drawing-medium' 
@@ -79,6 +114,7 @@ const LocalForecast = (props) => {
                     ? 
                     // TRUE = GOOD DAY OUTPUT
                     <>
+                        {/* MESSAGE FOR A GOOD DAY */}
                         <h3 className='Component-good-day-index'>The index results are in...<br />
                             Today is
                         </h3> 
@@ -86,25 +122,32 @@ const LocalForecast = (props) => {
                             Good...<br />
                             <FontAwesomeIcon icon={faMotorcycle}/><br/>
                             Let's ride!<br />
-                            See the 7-Day Forecast for more...
+                            Click the 7-Day Forecast<br />
+                            button below to plan <br />
+                            more awesome rides.
                         </p>
                     </>
                     : 
                     // TERNARY FALSE = NOT GOOD DAY OUTPUT
                     <>
+                        {/* MESSAGE FOR A BAD DAY TO RIDE */}
                         <h3 className='Component-good-day-index'>The index results are in...<br />
                             Today is
                         </h3> 
                         <p className='Component-good-day-index-icon-large'>
                             Not So Good...<br />
                             <FontAwesomeIcon icon={faExclamationCircle}/><br />
+                            Tomorrow might be better<br />
                             Click the 7-Day Forecast <br />
-                            to plan your next ride.
+                            button below to plan <br />
+                            your next ride.
                         </p>
                     </>
                     
                     }
                 </aside>
+
+                {/* SECTION FOR THE CITY, DATE, AND CONDITIONS */}
                 <article className='Component-content'>
                     <div className='Component-general'>
                         <h3 className='Component-city'>
@@ -156,6 +199,8 @@ const LocalForecast = (props) => {
                         </p>
                     </div>
                 </section> 
+
+                {/* BUTTON TOGGLING THE 7-DAY FORECAST */}
                 <section className='Component-details-section App-flexbox'>
 
                     <button className='App-button' onClick={sendPredictions}>{(displayPredictions) ? 'Refresh 7-Day Forecast' : 'See 7-Day Forecast'}</button>
@@ -165,8 +210,12 @@ const LocalForecast = (props) => {
                 {/* <Predictions /> */}
             </>
             ) : (
+                // UNDEFINED POSITION COORDS AND NO LOCAL STORAGE
             <>
-                {/* THE BLANK SECTIONS UNTIL THE API FETCH IS COMPLETE */}
+                {/* {setInterval(function(){ 
+                            alert("To view your local forecast, the Biker App must be allowed to track your device's locaiton. See the Site Settings of your URL search bar above."); 
+                        }, 10000)} */}
+                {/* BLANK SECTIONS UNTIL THE API FETCH IS COMPLETE */}
                 <aside className='Component-icon-container'>
                 {/* icon will change based on state */}
                 {/* <img 
@@ -176,6 +225,8 @@ const LocalForecast = (props) => {
                     alt='weather description icon'
                 /> */}
                 </aside>
+
+                {/* SECTION FOR THE LOCATION AND CONDITIONS ARE EMPTY */}
                 <article className='Component-content'>
                     <div className='Component-general'>
                         <h3 className='Component-city'>
@@ -186,9 +237,11 @@ const LocalForecast = (props) => {
                             {/* Friday May 15, 2020 */}
                             <span> {moment().format('dddd MMMM Do YYYY')}</span> 
                         </p>
-                        <p className='Component-status'>{(description) ? description : 'Weather TBD'}</p>
+                        <p className='Component-status'>Weather TBD</p>
                     </div>
                 </article>
+
+                {/* SECTIONS FOR TODAY'S WEATHER EMPTY */}
                 <section className='Component-details-section App-flexbox'>
                     <div className='Component-detail'>
                         <h3 className='Component-title'>
@@ -218,9 +271,11 @@ const LocalForecast = (props) => {
                         </p>
                     </div>
                 </section>
+
+                {/* <button onClick={}>Not seeing any results? Want help?</button> */}
             </>
-            )}
-            
+        )}
+                
         </>
     )
 }

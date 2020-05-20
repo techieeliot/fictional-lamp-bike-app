@@ -10,6 +10,7 @@ import Header from './components/Header'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
 import LocationForm from './components/LocationForm'
+import Criteria from './components/Criteria'
 
 const App = function() {
   
@@ -20,7 +21,7 @@ const App = function() {
         <Route path='/' exact>
           <Home 
             title='Welcome to Biker'
-            articleTitle="Find your location to know if it's a good day for a ride."
+            articleTitle="Find your location..."
           />
         </Route>
         <Route path='/localforecast'>
@@ -33,6 +34,12 @@ const App = function() {
           <Header title='City Search' />
           <LocationForm 
             articleTitle="Find Your Weather Forecast by Searching"
+          />
+        </Route>
+        <Route path='/criteria'>
+          <Header title='Index Criteria' />
+          <Criteria 
+            articleTitle="Set Your Good Day Index Criteria"
           />
         </Route>
         <Route path='/signup'>
