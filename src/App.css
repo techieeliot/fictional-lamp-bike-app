@@ -199,6 +199,20 @@ body {
     margin-bottom: 10vh;
   }
 
+  .Component-section-not-found{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .Component-main-not-found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
   .Component-value {
     color: #922f34
   }
