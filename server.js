@@ -1,10 +1,18 @@
-if (process.env.NODE_ENV != 'production') {
-  require('dotenv').config();
-}
 const express = require('express')
 const server = express();
 const cors = require('cors');
 server.use(cors());
+
+const process = require('process')
+const path = require('path')
+const index = (req, res) => {
+  if (process.env.NODE_ENV === 'development') {
+    require('dotenv').config();
+    res.status(200).redirect('http://localhost:3000')
+  } else {
+    res.sendFile(path.join(process.cwd(), 'build', 'index.html'))
+  }
+}
 
 const WB_API_KEY_A = process.env.WB_API_KEY_A
 const WB_API_KEY_B = process.env.WB_API_KEY_B
@@ -20,9 +28,9 @@ const getCoordinates = (req) => {
     const lat = req.query.lat
     const lon = req.query.lon
     console.log(lat, lon);
-     if(!lat) {
-       reject(lat);
-     } else resolve(lat && lon);
+    if(!lat) {
+      reject(lat);
+    } else resolve(lat && lon);
   });
 }
 
@@ -63,3 +71,5 @@ server.listen(PORT, err => {
   if (err) throw err
   console.log(`The Biker App server is listening on http://localhost:${PORT}!`)
 });
+
+module.exports = { index }
