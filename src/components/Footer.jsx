@@ -20,7 +20,7 @@ function Footer(props) {
                     <article className='App-footer-created-by'>
                         <p className='reduce-space-between'>Created with &#10084; by </p>
                         <span className='duru-font'> 
-                            <a href='https://techieeliot.github.io/Eliot-Sanford-Portfolio' target='_blank' rel="noopener noreferrer">
+                            <a href='https://techieeliot.com' target='_blank' rel="noopener noreferrer">
                                 Eliot Sanford 
                             </a>
                         </span>  	
