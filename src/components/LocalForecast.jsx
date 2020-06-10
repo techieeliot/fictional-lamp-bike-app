@@ -36,7 +36,7 @@ const LocalForecast = (props) => {
 
         // if position coords, then go to the weather bit api with the lat and lon
         if (typeof latitude !== "undefined" && typeof longitude !== "undefined") {
-            axios.get('http://localhost:9036', {
+            axios.get('https://thebikerapp.site/localforecast', { // slash get file
                 params: {
                     lat: latitude, 
                     lon: longitude
