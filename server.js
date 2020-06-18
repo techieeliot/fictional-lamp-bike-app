@@ -50,11 +50,13 @@ server.get('/', async (req, res, e) => {
     timeout: 2000,
     headers: {'X-Custom-Header': 'Weatherbit API'}
   });
-  await myApiClient.get('/localforecast')
-  .then(response => response.data)
-  // .then(data => console.log(data))
-  .then(data => res.send(data))
-  .catch(err => console.log(err))
+  await myApiClient.post('/localforecast', (req, res)=> {
+    console.log(response.data)
+    .then(response => response.data)
+    // .then(data => console.log(data))
+    .then(data => res.send(data))
+    .catch(err => console.log(err))
+  })
 })
 
 server.post('/locationform', (req, res) => {
