@@ -17,6 +17,7 @@
     "gh-pages": "^3.0.0",
     "moment": "^2.25.3",
     "mysql": "^2.18.1",
+    "netlify-lambda": "^1.6.3",
     "process": "^0.11.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -42,7 +43,9 @@
     "eject": "react-scripts eject",
     "app": "node app",
     "dev": "nodemon server.js",
-    "lint": "eslint src/js"
+    "lint": "eslint src/js",
+    "start:lambda": "netlify-lambda serve functions",
+    "build:lambda": "netlify-lambda build functions"
   },
   "eslintConfig": {
     "extends": "react-app"
