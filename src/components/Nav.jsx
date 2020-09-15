@@ -19,9 +19,9 @@ function Nav() {
                 <Link style={navStyle} to='/localforecast'>
                     <li>Local</li>
                 </Link>
-                <Link style={navStyle} to='/locationform'>
+                {/* <Link style={navStyle} to='/locationform'>
                     <li>Search</li>
-                </Link>
+                </Link> */}
 
                 {/* <Link style={navStyle} to='/signup'>
                     <li>Signup</li>

@@ -34,7 +34,7 @@ const Home = (props) => {
                     className='App-drawing-medium' 
                     alt='A map with pointpont locations across a foldable map'
                 />
-                <LocationForm />
+                {/* <LocationForm /> */}
             </section>
         </>
     )
